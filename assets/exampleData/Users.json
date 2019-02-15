@@ -1,0 +1,34 @@
+{
+    "users":[
+        {
+            "name": "Mariano",
+            "surname": "Serravalle",
+            "username": "mserravalle",
+            "password": "1234"
+        },
+        {
+            "name": "Bogdan",
+            "surname": "Matnoseque",
+            "username": "bogdanm",
+            "password": "12345"
+        },
+        {
+            "name": "Andy",
+            "surname": "Bonani",
+            "username": "abonani",
+            "password": "123456"
+        },
+        {
+            "name": "Valentin",
+            "surname": "Bonani",
+            "username": "vbonani",
+            "password": "1234567"
+        },
+        {
+            "name": "Damian",
+            "surname": "Rigazzio",
+            "username": "drigazzio",
+            "password": "12345678"
+        }
+    ]
+}

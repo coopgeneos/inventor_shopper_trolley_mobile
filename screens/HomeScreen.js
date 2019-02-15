@@ -12,12 +12,23 @@ import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 
+import { login,name } from "../services/AuthService";
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
 
+  constructor(props){
+    super(props);
+    this.login = login.bind(this);
+  }
+
   render() {
+
+    var login = this.login('dimebag','1234').then((data)=>{
+      console.log("LOGINNNN",data);
+    })  
+
     return (
       <View style={styles.container}>
         <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
@@ -35,7 +46,7 @@ export default class HomeScreen extends React.Component {
           <View style={styles.getStartedContainer}>
             {this._maybeRenderDevelopmentModeWarning()}
 
-            <Text style={styles.getStartedText}>Get started by opening</Text>
+            <Text style={styles.getStartedText}>Metal</Text>
 
             <View style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
               <MonoText style={styles.codeHighlightText}>screens/HomeScreen.js</MonoText>
@@ -88,7 +99,9 @@ export default class HomeScreen extends React.Component {
   }
 
   _handleLearnMorePress = () => {
-    WebBrowser.openBrowserAsync('https://docs.expo.io/versions/latest/guides/development-mode');
+    this.login('phill','1234').then((data)=>{
+      console.log(data);
+    });
   };
 
   _handleHelpPress = () => {
