@@ -126,11 +126,12 @@ export default (variables /*: * */ = variable) => {
       ".error": {
         borderColor: variables.inputErrorBorderColor
       },
-      borderWidth: variables.borderWidth * 2,
+      borderWidth: 0,
       borderTopWidth: 0,
       borderRightWidth: 0,
       borderLeftWidth: 0,
-      borderColor: variables.inputBorderColor
+      borderColor: variables.inputBorderColor,
+      underlineColorAndroid="transparent"
     },
     ".regular": {
       "NativeBase.Input": {
@@ -181,11 +182,12 @@ export default (variables /*: * */ = variable) => {
         borderColor: variables.inputSuccessBorderColor
       },
       ".underline": {
-        borderWidth: variables.borderWidth * 2,
+        borderWidth: 0,
         borderTopWidth: 0,
         borderRightWidth: 0,
         borderLeftWidth: 0,
-        borderColor: variables.inputSuccessBorderColor
+        borderColor: variables.inputSuccessBorderColor,
+        underlineColorAndroid="transparent"
       },
       borderColor: variables.inputSuccessBorderColor
     },
@@ -205,11 +207,12 @@ export default (variables /*: * */ = variable) => {
         borderColor: variables.inputErrorBorderColor
       },
       ".underline": {
-        borderWidth: variables.borderWidth * 2,
+        borderWidth: 0,
         borderTopWidth: 0,
         borderRightWidth: 0,
         borderLeftWidth: 0,
-        borderColor: variables.inputErrorBorderColor
+        borderColor: variables.inputErrorBorderColor,
+        underlineColorAndroid="transparent"
       },
       borderColor: variables.inputErrorBorderColor
     },
@@ -225,7 +228,8 @@ export default (variables /*: * */ = variable) => {
       marginLeft: 0
     },
 
-    borderWidth: variables.borderWidth * 2,
+    marginTop: 10,
+    borderWidth: 0,
     borderTopWidth: 0,
     borderRightWidth: 0,
     borderLeftWidth: 0,
@@ -233,7 +237,8 @@ export default (variables /*: * */ = variable) => {
     backgroundColor: "transparent",
     flexDirection: "row",
     alignItems: "center",
-    marginLeft: 2
+    marginLeft: 2,
+    underlineColorAndroid="transparent"
   };
 
   return itemTheme;
