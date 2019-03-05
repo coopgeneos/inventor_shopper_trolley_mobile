@@ -3,6 +3,7 @@ import {AsyncStorage} from 'react-native';
 
 export const addExampleData = () => {
     addExampleUsers();
+    addExampleTrolleys();
 }
 
 addExampleUsers = () => {
@@ -16,6 +17,16 @@ addExampleUsers = () => {
      }
 }
 
+addExampleTrolleys = () => {
+  var data = require('../assets/exampleData/Trolleys.json');
+    
+  try {
+      AsyncStorage.setItem('trolleys', JSON.stringify(data.trolleys));
+   } catch (error) {
+     console.error("ERROR ADDING EXAMPLE TROLLEYS",error);
+   }
+}
+
 export const getExampleUsers =  () => {
 
     try {
@@ -27,4 +38,4 @@ export const getExampleUsers =  () => {
         console.error("ERROR GETTING EXAMPLE USERS",error);
     }
     
-  };
+};

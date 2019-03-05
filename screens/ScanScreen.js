@@ -12,20 +12,37 @@ import {
   View,
   StatusBar,
   StyleSheet,
-  TouchableOpacity
+  TouchableOpacity,
+  Image,
+  ImageBackground
 } from 'react-native';
 
+import moment from "moment";
 import { BarCodeScanner, Permissions } from 'expo';
-
+import { 
+  setTrolley,
+  verifyTrolley,
+  dropTrolley,
+  verifyMyTrolley
+ } from "../services/TrolleyService";
 
 export default class ScanScreen extends Component {
   state = {
     hasCameraPermission: null,
     lastScannedUrl: null,
+    type: this.props.navigation.state.params.type
   };
 
   componentDidMount() {
     this._requestCameraPermission();
+  }
+
+  constructor(props){
+    super(props);
+    this.setTrolley = setTrolley;
+    this.verifyTrolley = verifyTrolley;
+    this.dropTrolley = dropTrolley;
+    this.verifyTrolley = verifyMyTrolley;
   }
 
   _requestCameraPermission = async () => {
@@ -36,34 +53,91 @@ export default class ScanScreen extends Component {
   };
 
   _handleBarCodeRead = result => {
+    console.log(result.data);
     if (result.data !== this.state.lastScannedUrl) {
       LayoutAnimation.spring();
+      Alert.alert(
+        'Qr code detected',
+        "Pick-up trolley #"+result.data+" - Current Time "+moment().format("hh:mm a"),
+        [
+                {text: 'Cancel', onPress: () => this.props.navigation.replace('PickUp')},
+                {text: 'Confirm', onPress: () => {
+                  this.verifyTrolley(result.data).then((exist)=>{
+                    var trolley = {
+                      number: result.data,
+                      startTime: moment(),
+                      endTime: null
+                    }
+
+                    if(exist){
+                        if(this.state.type == 'pick'){
+
+                          this.verifyMyTrolley(trolley.number).then((exist)=>{
+                            if(!exist){
+                              this.setTrolley(trolley).then(()=>{
+                                Alert.alert('Success','Trolley #'+result.data+' picked up!',
+                                [{text:'Ok', onPress: ()=>this.props.navigation.replace('PickUp')}])
+                              });
+                            }else{
+                              Alert.alert('Error','Trolley #'+result.data+' is already picked up!',
+                                [{text:'Ok', onPress: ()=>this.props.navigation.replace('PickUp')}])
+                            }
+                            
+                          })
+                          
+                        }else{
+                          
+                          this.dropTrolley(result.data).then(()=>{
+                            Alert.alert('Success','Trolley #'+result.data+' dropped!',
+                            [{text:'Ok', onPress: ()=>this.props.navigation.replace('DropOff')}])
+                          });
+                        }
+                      }
+                      else{
+                        Alert.alert('Error','The scanned trolley is not valid',
+                          [{text:'Ok', onPress: ()=>{
+                            var screen = 'PickUp';
+
+                            if(this.state.type == 'drop'){
+                              screen = 'DropOff'
+                            }
+                            this.props.navigation.replace(screen);
+                          }
+                        }])
+                      }
+                  })
+                } },
+              ],
+              {cancelable: false},
+      );
       this.setState({ lastScannedUrl: result.data });
     }
   };
 
   render() {
     return (
-      <View style={styles.container}>
+      
+      <View>
+          {this.state.hasCameraPermission === null
+            ? <Text>Requesting for camera permission</Text>
+            : this.state.hasCameraPermission === false
+                ? <Text style={{ color: '#fff' }}>
+                    Camera permission is not granted
+                  </Text>
+                : <BarCodeScanner
+                    onBarCodeRead={this._handleBarCodeRead}
+                    style={{height:Dimensions.get('window').height,width: Dimensions.get('window').width}}>
+                    <Text style={styles.description}>Scan your QR code</Text>
+                    <ImageBackground source={require("../assets/images/iconos/qr-scan.png")} 
+                    style={{width: '100%', height: '100%'}}>
 
-        {this.state.hasCameraPermission === null
-          ? <Text>Requesting for camera permission</Text>
-          : this.state.hasCameraPermission === false
-              ? <Text style={{ color: '#fff' }}>
-                  Camera permission is not granted
-                </Text>
-              : <BarCodeScanner
-                  onBarCodeRead={this._handleBarCodeRead}
-                  style={{
-                    height: Dimensions.get('window').height,
-                    width: Dimensions.get('window').width,
-                  }}
-                />}
+                    </ImageBackground>
+                  </BarCodeScanner>}
 
-        {this._maybeRenderUrl()}
+          {this._maybeRenderUrl()}
 
-        <StatusBar hidden />
-      </View>
+          <StatusBar hidden />
+        </View>
     );
   }
 
@@ -110,37 +184,33 @@ export default class ScanScreen extends Component {
   };
 }
 
+const { width } = Dimensions.get('window')
+const qrSize = width * 0.7
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#000',
   },
-  bottomBar: {
+  qr: {
+    marginTop: '20%',
+    marginBottom: '20%',
+    width: qrSize,
+    height: qrSize,
+  },
+  description: {
     position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    padding: 15,
-    flexDirection: 'row',
+    fontSize: width * 0.09,
+    marginTop: '5%',
+    textAlign: 'center',
+    width: '100%',
+    color: 'white',
   },
-  url: {
-    flex: 1,
-  },
-  urlText: {
-    color: '#fff',
-    fontSize: 20,
-  },
-  cancelButton: {
-    marginLeft: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  cancelButtonText: {
-    color: 'rgba(255,255,255,0.8)',
-    fontSize: 18,
+  cancel: {
+    fontSize: width * 0.05,
+    textAlign: 'center',
+    width: '70%',
+    color: 'white',
   },
 });
 

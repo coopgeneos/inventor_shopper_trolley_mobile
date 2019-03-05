@@ -375,10 +375,11 @@ export default (variables /*: * */ = variable) => {
     borderBottomWidth:
       platform === "ios" ? 1 / PixelRatio.getPixelSizeForLayoutSize(1) : 0,
     borderBottomColor: variables.toolbarDefaultBorder,
-    height:
-      variables.platform === "ios" && variables.platformStyle === "material"
-        ? variables.toolbarHeight + StatusBar.height
-        : variables.toolbarHeight,
+    // height:
+    //   variables.platform === "ios" && variables.platformStyle === "material"
+    //     ? variables.toolbarHeight + StatusBar.height
+    //     : variables.toolbarHeight,
+    height: 200,
     elevation: 3,
     shadowColor: platformStyle === "material" ? "#000" : undefined,
     shadowOffset:

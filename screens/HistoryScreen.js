@@ -22,13 +22,14 @@ import FooterNavBar from '../components/FooterNavBar';
 import { MonoText } from '../components/StyledText';
 
 const datas = [
-  ["Program 1"],
-  ["Program 2"],
-  ["Program 3"],
-  ["Program 4"]
+  ["Simon Mignolet", '21/02/2019', '53'],
+  ["Nathaniel Clyne", '21/03/2019', '59'],
+  ["Dejan Lovren", '21/04/2019', '25'],
+  ["Alberto Moreno", '21/05/2019', '55'],
+  ["Simon Mignolet", '21/06/2019', '15']
 ];
 
-export default class SettingsScreen extends React.Component {
+export default class HistoryScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
@@ -36,17 +37,21 @@ export default class SettingsScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        {/* <HeaderNavBar navigation={this.props.navigation} title="Actividades" />      */}
+        <HeaderNavBar navigation={this.props.navigation} title="Actividades" />     
         <Grid style={{ alignItems: 'center'}}>
-          <Row style={{ height: 120, backgroundColor: 'black', width: '100%', verticalAlign: 'middle'}}>
+          {/* <Row style={{ height: '30%', }}>
+          <ImageBackground source={require("../assets/images/background-01.png")} style={{width: '100%', height: '100%'}}>
             <Image source={require("../assets/images/logo.png")} style={{width: 100, height: 100}}>
+
             </Image>
-          </Row>
+          </ImageBackground>
+          </Row> */}
           <Row style={{ flexDirection: "row",
                         flexWrap: "wrap",
                         flex: 1,
                         justifyContent: "center",
-                        marginTop: 10}}>
+                        marginTop: 10,
+                        backgroundColor: "#FFF", height: '70%'}}>
           <ScrollView>
           <List
             dataArray={datas}
@@ -54,11 +59,13 @@ export default class SettingsScreen extends React.Component {
               <ListItem>
                 <Left>
                   <Text>
-                    {data}
+                    {data[1]}{"\n"}{data[0]}
                   </Text>
                 </Left>
                 <Right>
-                  <Icon name="play" />
+                  <Text>
+                    {data[2]} Points <Icon name="play" />
+                  </Text>
                 </Right>
               </ListItem>} />
           </ScrollView>
@@ -75,6 +82,7 @@ export default class SettingsScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
   },
   developmentModeText: {
     marginBottom: 20,

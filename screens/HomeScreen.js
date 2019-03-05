@@ -12,7 +12,7 @@ import { WebBrowser } from 'expo';
 
 import { MonoText } from '../components/StyledText';
 
-import { login,name } from "../services/AuthService";
+import { login } from "../services/AuthService";
 import { addExampleData } from "../services/ExampleDataService";
 import { pickUpTrolley } from "../services/TrolleyService";
 export default class HomeScreen extends React.Component {

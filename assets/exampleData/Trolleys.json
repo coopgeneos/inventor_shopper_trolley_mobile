@@ -1,0 +1,19 @@
+{
+    "trolleys":[
+        {
+            "number": 50,
+            "points": 5
+           
+        },
+        {
+            "number": 10,
+            "points": 5
+           
+        },
+        {
+            "number": 8,
+            "points": 5
+           
+        }
+    ]
+}

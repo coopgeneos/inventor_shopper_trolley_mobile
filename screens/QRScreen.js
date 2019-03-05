@@ -18,54 +18,53 @@ import { Grid, Row } from "react-native-easy-grid";
 
 import { WebBrowser } from 'expo';
 import HeaderNavBar from '../components/HeaderNavBar';
-import FooterNavBar from '../components/FooterNavBar';
 import { MonoText } from '../components/StyledText';
 
-const datas = [
-  ["Program 1"],
-  ["Program 2"],
-  ["Program 3"],
-  ["Program 4"]
-];
-
-export default class SettingsScreen extends React.Component {
+export default class QRScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
 
   render() {
     return (
+      <ImageBackground source={require("../assets/images/fondoHome.jpeg")} 
+      style={{width: '100%', height: '100%'}}>
       <View style={styles.container}>
         {/* <HeaderNavBar navigation={this.props.navigation} title="Actividades" />      */}
         <Grid style={{ alignItems: 'center'}}>
-          <Row style={{ height: 120, backgroundColor: 'black', width: '100%', verticalAlign: 'middle'}}>
-            <Image source={require("../assets/images/logo.png")} style={{width: 100, height: 100}}>
-            </Image>
+          <Row style={{ flexDirection: "row",
+                        flexWrap: "wrap",
+                        flex: 1,
+                        justifyContent: "center",
+                        marginTop: 250,
+                        height: '15%' }}>
+
+            <Text style= {{ color: '#0f3753' }}>Please enter QR Code</Text>
+
           </Row>
           <Row style={{ flexDirection: "row",
                         flexWrap: "wrap",
                         flex: 1,
                         justifyContent: "center",
-                        marginTop: 10}}>
-          <ScrollView>
-          <List
-            dataArray={datas}
-            renderRow={data =>
-              <ListItem>
-                <Left>
-                  <Text>
-                    {data}
-                  </Text>
-                </Left>
-                <Right>
-                  <Icon name="play" />
-                </Right>
-              </ListItem>} />
-          </ScrollView>
+                        marginTop: 50,
+                        height: '70%' }}>
+
+            <Image source={require("../assets/images/iconos/QR.png")} />
+
           </Row>
-        </Grid> 
-        <FooterNavBar navigation={this.props.navigation} />   
+          <Row style={{ flexDirection: "row",
+                        flexWrap: "wrap",
+                        flex: 1,
+                        justifyContent: "center",
+                        marginTop: 180,
+                        height: '15%' }} >
+
+            <Icon name="camera" style={{ fontSize: 80, color: '#0f3753' }} />
+
+          </Row>
+        </Grid>   
       </View>
+      </ImageBackground>
     );
   }
 
