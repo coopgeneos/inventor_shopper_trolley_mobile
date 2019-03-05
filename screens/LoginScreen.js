@@ -78,37 +78,35 @@ export default class LoginScreen extends React.Component {
             </Item>
             <Item style={{ marginTop: 20, borderColor: '#FFF' }}>
               <Button rounded onPress={() => {
+
+                  if(!this.state.username  || !this.state.password){
+                    Alert.alert(
+                      'Error',
+                      'Username or password can not be null',
+                      [
+                        {text: 'OK', onPress: () => console.log('OK Pressed')},
+                      ],
+                      {cancelable: false},
+                    );
+                  }else{
+
+                    var login = this.login(this.state.username,this.state.password).then((data)=>{
+                      if(data.status){
                         this.props.navigation.navigate('PickUp')
-
-                  // if(!this.state.username  || !this.state.password){
-                  //   Alert.alert(
-                  //     'Error',
-                  //     'Username or password can not be null',
-                  //     [
-                  //       {text: 'OK', onPress: () => console.log('OK Pressed')},
-                  //     ],
-                  //     {cancelable: false},
-                  //   );
-                  // }else{
-
-                  //   var login = this.login(this.state.username,this.state.password).then((data)=>{
-                  //     if(data.status){
-                  //       this.props.navigation.navigate('PickUp')
-                  //       console.log("LOGINNNN",data);
-                  //     }else{
-                  //       Alert.alert(
-                  //         'Error',
-                  //         'Invalid credentials',
-                  //         [
-                  //           {text: 'OK', onPress: () => console.log('OK Pressed')},
-                  //         ],
-                  //         {cancelable: false},
-                  //       );
-                  //     }
+                      }else{
+                        Alert.alert(
+                          'Error',
+                          'Invalid credentials',
+                          [
+                            {text: 'OK', onPress: () => console.log('OK Pressed')},
+                          ],
+                          {cancelable: false},
+                        );
+                      }
                       
-                  //   });
+                    });
 
-                  // }
+                  }
                 }
 
                 } style={{ fontSize: 40, color: '#FFF', backgroundColor: '#E58831'}}>
