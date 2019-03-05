@@ -2,10 +2,10 @@
     "users":[
         {
             "id": 1,
-            "name": "Mariano",
+            "name": "test",
             "surname": "Serravalle",
             "username": "mserravalle",
-            "password": "1234"
+            "password": "test"
         },
         {
             "id": 2,
