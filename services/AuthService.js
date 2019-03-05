@@ -10,6 +10,7 @@ export const login = (username,password) => {
             if(user){
 
                 if(user.password == password){
+                    setActiveUser(user);
                     resolve({status:true,message:"El usuario se ha logueado exitosamente",user:user});
                 }else{
                     resolve({status:false,message:"Las contraseñas no coinciden"});
@@ -17,6 +18,7 @@ export const login = (username,password) => {
 
             }else{
                 createUser(username,password).then((userData)=>{
+                    setActiveUser(userData);
                     resolve({status:true,message:"El usuario se ha creado exitosamente",user:userData});
                 })
                 .catch((error)=>{
@@ -42,7 +44,9 @@ export const exist = (username)=>{
         getExampleUsers().then((data)=>{
 
             let users = [];
-    
+            
+            console.log(data);
+
             users = JSON.parse(data);
     
             var filteredUsers = users.filter(
@@ -51,6 +55,9 @@ export const exist = (username)=>{
     
             resolve(filteredUsers[0]);
     
+        })
+        .catch((error)=>{
+            console.log(error);
         });
 
     });
@@ -71,6 +78,7 @@ export const createUser = (username,password) => {
             users = JSON.parse(data);
             
             var newUser = {
+                id: users.length +1,
                 username: username,
                 password: password
             };
@@ -90,4 +98,17 @@ export const createUser = (username,password) => {
 
     return promise;
 
+}
+
+
+export const setActiveUser = (user) =>{
+    AsyncStorage.setItem('user', JSON.stringify(user));
+}
+
+export const unsetActiveUser = () =>{
+    AsyncStorage.setItem('user', null);
+}
+
+export const getActiveUser = () => {
+    return AsyncStorage.getItem('user');
 }

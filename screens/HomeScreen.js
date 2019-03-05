@@ -13,6 +13,8 @@ import { WebBrowser } from 'expo';
 import { MonoText } from '../components/StyledText';
 
 import { login,name } from "../services/AuthService";
+import { addExampleData } from "../services/ExampleDataService";
+import { pickUpTrolley } from "../services/TrolleyService";
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null,
@@ -21,13 +23,23 @@ export default class HomeScreen extends React.Component {
   constructor(props){
     super(props);
     this.login = login.bind(this);
+    this.addExampleData = addExampleData.bind(this);
+    this.pickUpTrolley = pickUpTrolley.bind(this);
   }
 
   render() {
 
+    this.addExampleData();
+
     var login = this.login('dimebag','1234').then((data)=>{
       console.log("LOGINNNN",data);
-    })  
+      trolleyData = {
+        shop: 'Tienda el Testeo',
+        trolleyNumber: 1
+      }
+      this.pickUpTrolley(trolleyData);
+    });
+    
 
     return (
       <View style={styles.container}>

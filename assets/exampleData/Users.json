@@ -1,30 +1,36 @@
 {
     "users":[
         {
+            "id": 1,
             "name": "Mariano",
             "surname": "Serravalle",
             "username": "mserravalle",
             "password": "1234"
         },
         {
+            "id": 2,
             "name": "Bogdan",
             "surname": "Matnoseque",
             "username": "bogdanm",
             "password": "12345"
         },
         {
+            "id": 3,
             "name": "Andy",
             "surname": "Bonani",
             "username": "abonani",
             "password": "123456"
         },
         {
+
+            "id": 4,
             "name": "Valentin",
             "surname": "Bonani",
             "username": "vbonani",
             "password": "1234567"
         },
         {
+            "id": 5,
             "name": "Damian",
             "surname": "Rigazzio",
             "username": "drigazzio",
