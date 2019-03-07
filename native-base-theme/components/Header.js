@@ -364,13 +364,13 @@ export default (variables /*: * */ = variable) => {
       flexDirection: "row",
       justifyContent: "flex-end"
     },
-    backgroundColor: variables.toolbarDefaultBg,
+    backgroundColor: "transparent",
     flexDirection: "row",
     // paddingHorizontal: 10,
-    paddingLeft:
-      platform === "ios" && variables.platformStyle !== "material" ? 6 : 10,
-    paddingRight: 10,
-    justifyContent: "center",
+    // paddingLeft:
+    //   platform === "ios" && variables.platformStyle !== "material" ? 6 : 10,
+    // paddingRight: 10,
+    // justifyContent: "center",
     paddingTop: platform === "ios" ? 18 : 0,
     borderBottomWidth:
       platform === "ios" ? 1 / PixelRatio.getPixelSizeForLayoutSize(1) : 0,
@@ -379,7 +379,7 @@ export default (variables /*: * */ = variable) => {
     //   variables.platform === "ios" && variables.platformStyle === "material"
     //     ? variables.toolbarHeight + StatusBar.height
     //     : variables.toolbarHeight,
-    height: 200,
+    height: 250,
     elevation: 3,
     shadowColor: platformStyle === "material" ? "#000" : undefined,
     shadowOffset:
@@ -388,7 +388,10 @@ export default (variables /*: * */ = variable) => {
     shadowRadius: platformStyle === "material" ? 1.2 : undefined,
     top: 0,
     left: 0,
-    right: 0
+    right: 0,
+    contentPadding: 0,
+    paddingLeft: 0,
+    paddingRight: 0,
   };
 
   return headerTheme;

@@ -13,7 +13,7 @@ import { Container, Header, Content, Footer, FooterTab, Text,
   Button, Icon, CheckBox, List, ListItem, Form, Item, Label,
   Input, Spinner, Body, Left, Title, Right, Thumbnail, Radio } from 'native-base';
 
-import { Grid, Row } from "react-native-easy-grid";
+import { Grid, Row, Col } from "react-native-easy-grid";
 
 
 import { WebBrowser } from 'expo';
@@ -26,6 +26,8 @@ const datas = [
   ["Nathaniel Clyne", '21/03/2019', '59'],
   ["Dejan Lovren", '21/04/2019', '25'],
   ["Alberto Moreno", '21/05/2019', '55'],
+  ["Simon Mignolet", '21/06/2019', '15'],
+  ["Simon Mignolet", '21/06/2019', '15'],
   ["Simon Mignolet", '21/06/2019', '15']
 ];
 
@@ -36,43 +38,80 @@ export default class HistoryScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <HeaderNavBar navigation={this.props.navigation} title="Actividades" />     
-        <Grid style={{ alignItems: 'center'}}>
-          {/* <Row style={{ height: '30%', }}>
-          <ImageBackground source={require("../assets/images/background-01.png")} style={{width: '100%', height: '100%'}}>
-            <Image source={require("../assets/images/logo.png")} style={{width: 100, height: 100}}>
+      // <View style={styles.container}>
+      //   <HeaderNavBar navigation={this.props.navigation} title="Actividades" />     
+      //   <Grid style={{ alignItems: 'center'}}>
+      //     <Row style={{ flexDirection: "row",
+      //                   flexWrap: "wrap",
+      //                   flex: 1,
+      //                   justifyContent: "center",
+      //                   marginTop: 10,
+      //                   backgroundColor: "#FFF", height: '70%'}}>
+      //     <ScrollView>
+      //     <List
+      //       dataArray={datas}
+      //       renderRow={data =>
+      //         <ListItem>
+      //           <Left>
+      //             <Text>
+      //               {data[1]}{"\n"}{data[0]}
+      //             </Text>
+      //           </Left>
+      //           <Right>
+      //             <Text>
+      //               {data[2]} Points <Icon name="play" />
+      //             </Text>
+      //           </Right>
+      //         </ListItem>} />
+      //     </ScrollView>
+      //     </Row>
+      //   </Grid> 
+      //   <FooterNavBar navigation={this.props.navigation} />   
+      // </View>
 
-            </Image>
-          </ImageBackground>
-          </Row> */}
-          <Row style={{ flexDirection: "row",
-                        flexWrap: "wrap",
-                        flex: 1,
-                        justifyContent: "center",
-                        marginTop: 10,
-                        backgroundColor: "#FFF", height: '70%'}}>
+      <Container>
+        <HeaderNavBar navigation={this.props.navigation}  title="History" />
+        <Content>
+          
+        <Grid style={{ alignItems: 'center'}}>
+          <Row style={{ height: 60, marginTop: 5 }}>
+          <Col style={{ width: '50%' }}>
+          <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 28 }}> 58</Text>
+          <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 16 }}> Returns </Text>
+          </Col>
+          <Col style={{ width: '50%' }}>
+          <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 28 }}> 149 Points</Text>
+          <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 16 }}> Total earned</Text>
+          </Col>                
+          </Row>
+          <Row style={{ marginTop: 5 }}>
           <ScrollView>
           <List
             dataArray={datas}
             renderRow={data =>
-              <ListItem>
+              <ListItem style={{ borderColor: '#E58831', paddingRight: 10 }}>
                 <Left>
                   <Text>
+                  {/* <Text style= {{ fontWeight: "bold" }}></Text> */}
                     {data[1]}{"\n"}{data[0]}
                   </Text>
                 </Left>
                 <Right>
                   <Text>
-                    {data[2]} Points <Icon name="play" />
+                    {data[2]} Points <Icon name="play" style={{ color: '#E58831'}} />
                   </Text>
                 </Right>
               </ListItem>} />
           </ScrollView>
           </Row>
-        </Grid> 
-        <FooterNavBar navigation={this.props.navigation} />   
-      </View>
+        </Grid>
+
+        </Content>
+
+        <FooterNavBar navigation={this.props.navigation} />
+
+      </Container>
+
     );
   }
 

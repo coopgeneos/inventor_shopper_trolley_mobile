@@ -97,8 +97,7 @@ export default (variables /*: * */ = variable) => {
       alignSelf: "center",
       alignItems: "flex-end"
     },
-    //backgroundColor: variables.footerDefaultBg,
-    backgroundColor: "transparent",
+    backgroundColor: variables.footerDefaultBg,
     flexDirection: "row",
     justifyContent: "center",
     borderTopWidth:

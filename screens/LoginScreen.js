@@ -55,7 +55,8 @@ export default class LoginScreen extends React.Component {
                         flex: 1,
                         justifyContent: "center" }}>
       
-          <ScrollView>
+          {/* <ScrollView> */}
+
           <Form>
           <Item style={{ marginTop: 10, borderColor: '#FFF' }}>
               <Text style={{ color: "#113851", fontSize: 40, borderColor: '#FFF'}}>¡WELCOME!</Text>
@@ -112,12 +113,9 @@ export default class LoginScreen extends React.Component {
                 } style={{ fontSize: 40, color: '#FFF', backgroundColor: '#E58831'}}>
               <Text>Log In</Text>
               </Button>
-              <Button rounded onPress={() => this.props.navigation.navigate('DropOff')} style={{ fontSize: 40, color: '#FFF', backgroundColor: '#E58831'}}>
-              <Text>Log In</Text>
-              </Button>
             </Item>
           </Form>
-          </ScrollView>
+          {/* </ScrollView> */}
           </Row>
         </Grid>   
       </View>
