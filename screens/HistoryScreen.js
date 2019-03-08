@@ -56,7 +56,7 @@ export default class HistoryScreen extends React.Component {
           <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 16 }}> Total earned</Text>
           </Col>                
           </Row>
-          <Row style={{ marginTop: 5 }}>
+          <Row style={{ marginTop: 15 }}>
           <ScrollView>
           <List
             dataArray={datas}
