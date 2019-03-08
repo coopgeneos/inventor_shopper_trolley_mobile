@@ -134,7 +134,7 @@ export default class RewardsScreen extends React.Component {
                 />
                 { this.caption }
           </Row>
-          <Row style={{ height: '100%', marginTop: 10 }}>
+          <Row style={{ height: '100%', marginTop: 10, padding: 10 }}>
                 <Text>
                 Loren ipsum dolor sit arnet, consectetur
                 adipisicing elit, sed du eiusmod tempor

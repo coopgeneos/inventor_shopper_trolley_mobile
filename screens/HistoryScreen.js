@@ -21,6 +21,8 @@ import HeaderNavBar from '../components/HeaderNavBar';
 import FooterNavBar from '../components/FooterNavBar';
 import { MonoText } from '../components/StyledText';
 
+// Recuperar desde los registros que se van haciendo con la app
+
 const datas = [
   ["Simon Mignolet", '21/02/2019', '53'],
   ["Nathaniel Clyne", '21/03/2019', '59'],
@@ -38,36 +40,6 @@ export default class HistoryScreen extends React.Component {
 
   render() {
     return (
-      // <View style={styles.container}>
-      //   <HeaderNavBar navigation={this.props.navigation} title="Actividades" />     
-      //   <Grid style={{ alignItems: 'center'}}>
-      //     <Row style={{ flexDirection: "row",
-      //                   flexWrap: "wrap",
-      //                   flex: 1,
-      //                   justifyContent: "center",
-      //                   marginTop: 10,
-      //                   backgroundColor: "#FFF", height: '70%'}}>
-      //     <ScrollView>
-      //     <List
-      //       dataArray={datas}
-      //       renderRow={data =>
-      //         <ListItem>
-      //           <Left>
-      //             <Text>
-      //               {data[1]}{"\n"}{data[0]}
-      //             </Text>
-      //           </Left>
-      //           <Right>
-      //             <Text>
-      //               {data[2]} Points <Icon name="play" />
-      //             </Text>
-      //           </Right>
-      //         </ListItem>} />
-      //     </ScrollView>
-      //     </Row>
-      //   </Grid> 
-      //   <FooterNavBar navigation={this.props.navigation} />   
-      // </View>
 
       <Container>
         <HeaderNavBar navigation={this.props.navigation}  title="History" />
@@ -79,7 +51,7 @@ export default class HistoryScreen extends React.Component {
           <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 28 }}> 58</Text>
           <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 16 }}> Returns </Text>
           </Col>
-          <Col style={{ width: '50%' }}>
+          <Col style={{ width: '50%', paddingRight: 40}}>
           <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 28 }}> 149 Points</Text>
           <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 16 }}> Total earned</Text>
           </Col>                
