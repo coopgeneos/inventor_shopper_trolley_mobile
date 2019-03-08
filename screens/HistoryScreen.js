@@ -20,6 +20,8 @@ import { WebBrowser } from 'expo';
 import HeaderNavBar from '../components/HeaderNavBar';
 import FooterNavBar from '../components/FooterNavBar';
 import { MonoText } from '../components/StyledText';
+import { getHistoryRewards } from "../services/TrolleyService";
+import moment from "moment";
 
 const datas = [
   ["Simon Mignolet", '21/02/2019', '53'],
@@ -35,6 +37,34 @@ export default class HistoryScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
+
+  
+
+  constructor(props){
+    super(props);
+
+    this.state = {
+      rewards:{
+        count: 0,
+        rewards: 0,
+        trolleys: []
+      }
+    }
+
+    this.getHistoryRewards = getHistoryRewards.bind(this);
+
+    this.getHistoryRewards().then((rewards)=>{
+      console.log("------------HISTORY SCREEN------------");
+      console.log(rewards);
+      console.log("------------HISTORY SCREEN------------");
+
+      this.setState({
+        rewards: rewards
+      });
+    });
+
+    
+  }
 
   render() {
     return (
@@ -76,29 +106,29 @@ export default class HistoryScreen extends React.Component {
         <Grid style={{ alignItems: 'center'}}>
           <Row style={{ height: 60, marginTop: 5 }}>
           <Col style={{ width: '50%' }}>
-          <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 28 }}> 58</Text>
+          <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 28 }}> { this.state.rewards.trolleys.length }</Text>
           <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 16 }}> Returns </Text>
           </Col>
           <Col style={{ width: '50%' }}>
-          <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 28 }}> 149 Points</Text>
+          <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 28 }}> { this.state.rewards.rewards }</Text>
           <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 16 }}> Total earned</Text>
           </Col>                
           </Row>
           <Row style={{ marginTop: 5 }}>
           <ScrollView>
           <List
-            dataArray={datas}
+            dataArray={this.state.rewards.trolleys}
             renderRow={data =>
               <ListItem style={{ borderColor: '#E58831', paddingRight: 10 }}>
                 <Left>
                   <Text>
                   {/* <Text style= {{ fontWeight: "bold" }}></Text> */}
-                    {data[1]}{"\n"}{data[0]}
+                    { moment(data.startTime).format('MM/DD/YYYY') }{"\n"}{data.name}
                   </Text>
                 </Left>
                 <Right>
                   <Text>
-                    {data[2]} Points <Icon name="play" style={{ color: '#E58831'}} />
+                    { data.points } Points <Icon name="play" style={{ color: '#E58831'}} />
                   </Text>
                 </Right>
               </ListItem>} />

@@ -30,6 +30,100 @@ export const pickUpTrolley = (trolleyData) => {
 
 }
 
+export const getTodayRewards = () => {
+
+    let promise = new Promise((resolve,reject)=>{
+
+        getMyDroppedTrolleys().then((trolleys)=>{
+            trolleys = JSON.parse(trolleys);
+            var filteredTrolleys = [];
+            var count = 0;
+            var rewards = 0;
+            
+            console.log("--------TROLLEYS IN HISTORY--------");
+            console.log(trolleys);
+            console.log("-------TROLLEYS IN HISTORY--------");
+
+            if(trolleys){
+         
+                trolleys.forEach(trolley => {
+                    console.log(trolley);
+                    trolleyStartTime = moment(trolley.startTime);
+                    todayTime = moment();
+
+                    trolleyDate = trolleyStartTime.format('MM/DD/YYYY');
+                    todayDate = todayTime.format('MM/DD/YYYY');
+                    console.log(trolleyDate);
+                    console.log(todayDate);
+
+                    if(todayDate == trolleyDate){
+                        filteredTrolleys.push(trolley);
+                        count += 1;
+                        rewards += +trolley.points;
+                    }
+
+                    
+
+                });
+
+            }
+
+            resolve({
+                count: count,
+                rewards: rewards,
+                trolleys: filteredTrolleys
+            });
+
+
+        })
+
+
+    });
+
+    return promise;
+
+}
+
+
+export const getHistoryRewards = () => {
+
+    let promise = new Promise((resolve,reject)=>{
+
+        getMyDroppedTrolleys().then((trolleys)=>{
+            trolleys = JSON.parse(trolleys);
+            var count = 0;
+            var rewards = 0;
+            
+            console.log("--------TROLLEYS IN HISTORY--------");
+            console.log(trolleys);
+            console.log("-------TROLLEYS IN HISTORY--------");
+
+            if(trolleys){
+                console.log("ACAAAAAAA");
+                trolleys.forEach(trolley => {
+                    console.log(trolley);
+                    count += 1;
+                    rewards += +trolley.points;
+
+                });
+
+            }
+
+            resolve({
+                count: count,
+                rewards: rewards,
+                trolleys: trolleys
+            });
+
+
+        })
+
+
+    });
+
+    return promise;
+}
+
 export const verifyTrolley = (trolleyNumber) => {
 
     let promise = new Promise((resolve,reject)=>{
@@ -38,16 +132,17 @@ export const verifyTrolley = (trolleyNumber) => {
             trolleys = JSON.parse(trolleys);
             console.log(JSON.stringify(trolleys));
             exist = false;
-
+            var existentTrolley = null;
             if(trolleys){
                 trolleys.forEach(trolley => {
                     if(trolley.number == trolleyNumber){
                         exist = true;
+                        existentTrolley = trolley;
                     }
                 });
             }
 
-            resolve(exist);
+            resolve({exist:exist,trolley:existentTrolley});
 
         });
 
@@ -136,6 +231,7 @@ export const dropTrolley = (trolleyNumber) =>{
             trolleys = JSON.parse(trolleys);
 
             trolleysUpdated = [];
+            trolleyToPush = null;
 
             trolleys.forEach(trolley => {
                 if(trolley.number == trolleyNumber){
@@ -143,17 +239,33 @@ export const dropTrolley = (trolleyNumber) =>{
                 }
 
                 trolleysUpdated.push(trolley);
+                trolleyToPush = trolley;
             });
-            
-           AsyncStorage.setItem('myDroppedTrolleys',JSON.stringify(trolleys)).then(()=>{
-               getMyDroppedTrolleys().then((data)=>{
-                   console.log(JSON.stringify(data));
-               })
-               AsyncStorage.removeItem('myTrolleys').then(()=>{
 
-                   resolve();
-               });
-           });
+            getMyDroppedTrolleys().then((droppedTrolleys)=>{
+                
+                droppedTrolleys = JSON.parse(droppedTrolleys);
+
+                if(droppedTrolleys){
+                    
+                    droppedTrolleys.push(trolleyToPush);
+
+                }else{
+                    droppedTrolleys = trolleysUpdated;
+                }
+
+                AsyncStorage.setItem('myDroppedTrolleys',JSON.stringify(droppedTrolleys)).then(()=>{
+                    getMyDroppedTrolleys().then((data)=>{
+                        console.log(JSON.stringify(data));
+                    })
+                    AsyncStorage.removeItem('myTrolleys').then(()=>{
+                        resolve();
+                    });
+                });
+
+            })
+            
+           
 
         });
 

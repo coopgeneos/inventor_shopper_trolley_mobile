@@ -62,21 +62,24 @@ export default class ScanScreen extends Component {
         [
                 {text: 'Cancel', onPress: () => this.props.navigation.replace('PickUp')},
                 {text: 'Confirm', onPress: () => {
-                  this.verifyTrolley(result.data).then((exist)=>{
+                  this.verifyTrolley(result.data).then((response)=>{
                     var trolley = {
                       number: result.data,
                       startTime: moment(),
-                      endTime: null
+                      endTime: null,
+                      points:response.trolley.points,
+                      name: response.trolley.name
+
                     }
 
-                    if(exist){
+                    if(response.exist){
                         if(this.state.type == 'pick'){
 
                           this.verifyMyTrolley(trolley.number).then((exist)=>{
                             if(!exist){
                               this.setTrolley(trolley).then(()=>{
                                 Alert.alert('Success','Trolley #'+result.data+' picked up!',
-                                [{text:'Ok', onPress: ()=>this.props.navigation.replace('PickUp')}])
+                                [{text:'Ok', onPress: ()=>this.props.navigation.replace('DropOff')}])
                               });
                             }else{
                               Alert.alert('Error','Trolley #'+result.data+' is already picked up!',

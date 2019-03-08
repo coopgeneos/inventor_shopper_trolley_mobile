@@ -2,17 +2,20 @@
     "trolleys":[
         {
             "number": 50,
-            "points": 5
+            "points": 5,
+            "name": "Bunnings"
            
         },
         {
             "number": 10,
-            "points": 5
+            "points": 10,
+            "name": "IGA"
            
         },
         {
             "number": 8,
-            "points": 5
+            "points": 5,
+            "name": "Dan Murphy's"
            
         }
     ]

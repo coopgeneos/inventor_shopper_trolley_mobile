@@ -23,35 +23,38 @@ import HeaderNavBar from '../components/HeaderNavBar';
 import FooterNavBar from '../components/FooterNavBar';
 import { MonoText } from '../components/StyledText';
 
+import { getTodayRewards } from "../services/TrolleyService";
+import moment from 'moment';
 export default class RewardsScreen extends React.Component {
   
   constructor() {
     super();
+    this.getTodayRewards = getTodayRewards.bind(this);
     this.state = {
-      images: [
-            {
-              caption: '50 points',
-              source: require('../assets/images/iconos/carro_footer.jpeg'),
-              dimensions: { width: 251, height: 315 }
-            },
-            {
-              caption: '150 points',
-              source: require('../assets/images/iconos/carro_footer.jpeg'),
-              dimensions: { width: 251, height: 315 }
-            },
-            {
-              caption: '80 points',
-              source: require('../assets/images/iconos/carro_footer.jpeg'),
-              dimensions: { width: 251, height: 315 }
-            },
-            {
-              caption: '135 points',
-              source: require('../assets/images/iconos/carro_footer.jpeg'),
-              dimensions: { width: 251, height: 315 }
-            },
-    ]
+      rewards:{
+        count: 0,
+        rewards: 0,
+        trolleys: []
+      },
+      lastUpdate:'',
+      images: []
     };
     this.onChangeImage = this.onChangeImage.bind(this);
+    
+    this.getTodayRewards().then(( response )=>{
+      var images = [];
+      
+      response.trolleys.forEach(trolley => {
+        images.push({
+          caption: trolley.points,
+          source: require('../assets/images/iconos/carro_footer.jpeg'),
+          dimensions: { width: 251, height: 315 }
+        })
+      });
+
+      this.setState( {rewards:response,images:images} )
+      this.getLastUpdate();
+    })
 
   }
 
@@ -70,21 +73,22 @@ export default class RewardsScreen extends React.Component {
 
   get caption () {
       const { images, index } = this.state;
+
       return (
           <View style={{ bottom: 0, height: 65, width: '100%', position: 'absolute', justifyContent: 'center', padding: 10 }}>
-              <Text style={{ textAlign: 'center', color: 'white', fontSize: 28, fontStyle: 'italic', padding: 10 }}>{ (images[index] && images[index].caption) || '' } </Text>
+              <Text style={{ textAlign: 'center', color: 'white', fontSize: 28, fontStyle: 'italic', padding: 10 }}> + { this.state.rewards.trolleys[index] && this.state.rewards.trolleys[index].points || '' } </Text>
           </View>
       );
   }
 
-  get galleryCount () {
-      const { index, images } = this.state;
-      return (
-          <View style={{ top: 0, height: 65, backgroundColor: 'rgba(0, 0, 0, 0.7)', width: '100%', position: 'absolute', justifyContent: 'center' }}>
-              <Text style={{ textAlign: 'right', color: 'white', fontSize: 14, fontStyle: 'italic', paddingRight: '10%' }}>{ index + 1 } / { images.length }</Text>
-          </View>
-      );
-  }
+  // get galleryCount () {
+  //     const { index, images } = this.state;
+  //     return (
+  //         <View style={{ top: 0, height: 65, backgroundColor: 'rgba(0, 0, 0, 0.7)', width: '100%', position: 'absolute', justifyContent: 'center' }}>
+  //             <Text style={{ textAlign: 'right', color: 'white', fontSize: 14, fontStyle: 'italic', paddingRight: '10%' }}>{ index + 1 } / { this.rewards.trolleys.length }</Text>
+  //         </View>
+  //     );
+  // }
 
 
 
@@ -107,6 +111,14 @@ export default class RewardsScreen extends React.Component {
     header: null,
   };
 
+  getLastUpdate = () => {
+
+    var trolleysLength = this.state.rewards.trolleys.length;
+    var endTime = this.state.rewards.trolleys[ trolleysLength - 1 ].endTime;
+    console.log(endTime);
+    this.setState({lastUpdate: moment(endTime).format('MM/DD HH:mm a')});
+  }
+
 
   render() {
     const {value} = this.state;
@@ -118,21 +130,21 @@ export default class RewardsScreen extends React.Component {
           
         <Grid style={{ alignItems: 'center'}}>
           <Row style={{ height: 40, marginTop: 5 }}>
-            <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 28 }}> 245 Points</Text>
-                
+            <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 28 }}> { this.state.rewards.rewards } Points</Text>
+                 
           </Row>
           <Row  style={{ height: 40, marginTop: 5 }}>
-            <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 16 }}> Last updated: 2/26 8:03 am</Text>
+            <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 16 }}> Last updated: { this.state.lastUpdate }</Text>
           </Row>
           <Row style={{ height: 200, marginTop: 5}}>
-                <Gallery
-                  style={{ flex: 1, backgroundColor: '#FFF' }}
-                  images={this.state.images}
-                  errorComponent={this.renderError}
-                  onPageSelected={this.onChangeImage}
-                  initialPage={0}
-                />
-                { this.caption }
+            <Gallery
+              style={{ flex: 1, backgroundColor: '#FFF' }}
+              images={this.state.images}
+              errorComponent={this.renderError}
+              onPageSelected={this.onChangeImage}
+              initialPage={0}
+            />
+            { this.caption }
           </Row>
           <Row style={{ height: '100%', marginTop: 10 }}>
                 <Text>
