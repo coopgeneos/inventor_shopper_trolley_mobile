@@ -1,5 +1,8 @@
 import {AsyncStorage} from 'react-native';
 
+export const clearAsyncStorage = async() => {
+  AsyncStorage.clear();
+}
 
 export const addExampleData = () => {
     addExampleUsers();

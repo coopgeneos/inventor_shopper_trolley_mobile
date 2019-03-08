@@ -42,7 +42,7 @@ export default class ScanScreen extends Component {
     this.setTrolley = setTrolley;
     this.verifyTrolley = verifyTrolley;
     this.dropTrolley = dropTrolley;
-    this.verifyTrolley = verifyMyTrolley;
+    this.verifyMyTrolley = verifyMyTrolley;
   }
 
   _requestCameraPermission = async () => {

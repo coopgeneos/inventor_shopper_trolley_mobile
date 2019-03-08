@@ -16,8 +16,8 @@ import { Container, Header, Content, Footer, FooterTab, Text,
 
 import { Grid, Row } from "react-native-easy-grid";
 import { login } from "../services/AuthService";
-import { addExampleData } from "../services/ExampleDataService";
-import { pickUpTrolley } from "../services/TrolleyService";
+import { addExampleData,clearAsyncStorage } from "../services/ExampleDataService";
+import { pickUpTrolley,getMyTrolleys } from "../services/TrolleyService";
 
 import { WebBrowser } from 'expo';
 import HeaderNavBar from '../components/HeaderNavBar';
@@ -34,11 +34,61 @@ export default class LoginScreen extends React.Component {
     this.login = login.bind(this);
     this.addExampleData = addExampleData.bind(this);
     this.pickUpTrolley = pickUpTrolley.bind(this);
+    this.getMyTrolleys = getMyTrolleys.bind(this);
+    this.clearAsyncStorage = clearAsyncStorage.bind(this);
+
+    // this.clearAsyncStorage().then(()=>{
     this.addExampleData();
+    // });
 
     this.state = {
-      username: null,
-      password: null
+      username: 'test',
+      password: 'test'
+    }
+  }
+
+  _handleLogin(){
+
+    if(!this.state.username  || !this.state.password){
+      Alert.alert(
+        'Error',
+        'Username or password can not be null',
+        [
+          {text: 'OK', onPress: () => console.log('OK Pressed')},
+        ],
+        {cancelable: false},
+      );
+    }else{
+
+      var login = this.login(this.state.username,this.state.password).then((data)=>{
+        if(data.status){
+
+          this.getMyTrolleys().then((trolleys)=>{
+            console.log("----------------------- MY TROLLEYS ---------------------");
+            console.log(trolleys);
+            console.log("----------------------- END MY TROLLEYS ---------------------");
+
+            if(trolleys){
+              this.props.navigation.navigate('DropOff');
+            }else{
+              this.props.navigation.navigate('PickUp');
+            }
+          })
+        
+        }else{
+
+          Alert.alert(
+            'Error',
+            'Invalid credentials',
+            [
+              {text: 'OK', onPress: () => console.log('OK Pressed')},
+            ],
+            {cancelable: false},
+          );
+        }
+        
+      });
+
     }
   }
 
@@ -64,10 +114,10 @@ export default class LoginScreen extends React.Component {
             <Text style={{ color: "#E58831", fontSize: 40, borderColor: '#FFF'}}>Shopper Trolley</Text>
             </Item>
             <Item rounded style={{ marginTop: 10, width: '70%'}}>
-              <Input placeholder="Username"  onChangeText={(text) => this.setState({username: text})} />
+              <Input placeholder="Username" value="test"  onChangeText={(text) => this.setState({username: text})} />
             </Item>
             <Item rounded style={{ marginTop: 10, width: '70%'}}>
-              <Input placeholder="Password" secureTextEntry onChangeText={(text) => this.setState({password: text})} />
+              <Input placeholder="Password" value="test" secureTextEntry onChangeText={(text) => this.setState({password: text})} />
             </Item>
             <Item style={{ marginTop: 10, borderColor: '#FFF' }}>
               <Text style={{ width: '60%' }}>Login Once</Text>
@@ -77,41 +127,11 @@ export default class LoginScreen extends React.Component {
                 style={{ width: '10%' }}/>
             </Item>
             <Item style={{ marginTop: 20, borderColor: '#FFF' }}>
-              <Button rounded onPress={() => {
+              <Button rounded onPress={ this._handleLogin.bind(this) }
 
-                  if(!this.state.username  || !this.state.password){
-                    Alert.alert(
-                      'Error',
-                      'Username or password can not be null',
-                      [
-                        {text: 'OK', onPress: () => console.log('OK Pressed')},
-                      ],
-                      {cancelable: false},
-                    );
-                  }else{
-
-                    var login = this.login(this.state.username,this.state.password).then((data)=>{
-                      if(data.status){
-                        this.props.navigation.navigate('PickUp')
-                      }else{
-                        Alert.alert(
-                          'Error',
-                          'Invalid credentials',
-                          [
-                            {text: 'OK', onPress: () => console.log('OK Pressed')},
-                          ],
-                          {cancelable: false},
-                        );
-                      }
-                      
-                    });
-
-                  }
-                }
-
-                } style={{ fontSize: 40, color: '#FFF', backgroundColor: '#E58831'}}>
+                style={{ fontSize: 40, color: '#FFF', backgroundColor: '#E58831'}}>
               <Text>Log In</Text>
-              </Button>
+              </Button>  
               <Button rounded onPress={() => this.props.navigation.navigate('DropOff')} style={{ fontSize: 40, color: '#FFF', backgroundColor: '#E58831'}}>
               <Text>Log In</Text>
               </Button>

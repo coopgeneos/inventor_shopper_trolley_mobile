@@ -3,6 +3,8 @@ import { getExampleUsers } from "./ExampleDataService";
 import { getActiveUser } from "./AuthService";
 import moment from "moment";
 
+
+
 export const pickUpTrolley = (trolleyData) => {
    
     var user = null;
@@ -143,11 +145,14 @@ export const dropTrolley = (trolleyNumber) =>{
                 trolleysUpdated.push(trolley);
             });
             
-           AsyncStorage.setItem('myTrolleys',JSON.stringify(trolleys)).then(()=>{
-               getMyTrolleys().then((data)=>{
+           AsyncStorage.setItem('myDroppedTrolleys',JSON.stringify(trolleys)).then(()=>{
+               getMyDroppedTrolleys().then((data)=>{
                    console.log(JSON.stringify(data));
                })
-               resolve();
+               AsyncStorage.removeItem('myTrolleys').then(()=>{
+
+                   resolve();
+               });
            });
 
         });
@@ -156,5 +161,10 @@ export const dropTrolley = (trolleyNumber) =>{
 
 
     return promise;
+
+}
+
+export const getMyDroppedTrolleys = () =>{
+    return AsyncStorage.getItem('myDroppedTrolleys');
 
 }
