@@ -130,6 +130,7 @@ export default (variables /*: * */ = variable) => {
       borderTopWidth: 0,
       borderRightWidth: 0,
       borderLeftWidth: 0,
+      borderBottomWidth: 0,
       borderColor: variables.inputBorderColor,
       underlineColorAndroid="transparent"
     },
@@ -233,7 +234,8 @@ export default (variables /*: * */ = variable) => {
     borderTopWidth: 0,
     borderRightWidth: 0,
     borderLeftWidth: 0,
-    borderColor: variables.inputBorderColor,
+    borderBottomWidth: 0,
+    borderColor: "transparent",
     backgroundColor: "transparent",
     flexDirection: "row",
     alignItems: "center",

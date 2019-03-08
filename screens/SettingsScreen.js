@@ -35,38 +35,70 @@ export default class SettingsScreen extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        {/* <HeaderNavBar navigation={this.props.navigation} title="Actividades" />      */}
+      // <View style={styles.container}>
+      //   <HeaderNavBar navigation={this.props.navigation} title="Actividades" />
+      //   <Grid style={{ alignItems: 'center'}}>
+      //     <Row style={{ height: 120, backgroundColor: 'black', width: '100%', verticalAlign: 'middle'}}>
+      //       <Image source={require("../assets/images/logo.png")} style={{width: 100, height: 100}}>
+      //       </Image>
+      //     </Row>
+      //     <Row style={{ flexDirection: "row",
+      //                   flexWrap: "wrap",
+      //                   flex: 1,
+      //                   justifyContent: "center",
+      //                   marginTop: 10}}>
+      //     <ScrollView>
+      //     <List
+      //       dataArray={datas}
+      //       renderRow={data =>
+      //         <ListItem>
+      //           <Left>
+      //             <Text>
+      //               {data}
+      //             </Text>
+      //           </Left>
+      //           <Right>
+      //             <Icon name="play" />
+      //           </Right>
+      //         </ListItem>} />
+      //     </ScrollView>
+      //     </Row>
+      //   </Grid> 
+      //   <FooterNavBar navigation={this.props.navigation} />   
+      // </View>
+      <Container>
+        <HeaderNavBar navigation={this.props.navigation}  title="Settings" />
+        <Content>
+          
         <Grid style={{ alignItems: 'center'}}>
-          <Row style={{ height: 120, backgroundColor: 'black', width: '100%', verticalAlign: 'middle'}}>
-            <Image source={require("../assets/images/logo.png")} style={{width: 100, height: 100}}>
-            </Image>
+          <Row style={{ height: 60, marginTop: 5 }}>
+          <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 16 }}> Please choose which rewards program you would like to link to Shopper Trolley </Text>                
           </Row>
-          <Row style={{ flexDirection: "row",
-                        flexWrap: "wrap",
-                        flex: 1,
-                        justifyContent: "center",
-                        marginTop: 10}}>
+          <Row style={{ marginTop: 5 }}>
           <ScrollView>
-          <List
+            <List
             dataArray={datas}
             renderRow={data =>
-              <ListItem>
+              <ListItem style={{ borderColor: '#E58831', paddingRight: 10 }}>
                 <Left>
                   <Text>
                     {data}
                   </Text>
                 </Left>
                 <Right>
-                  <Icon name="play" />
+                  <Icon name="play" style={{ color: '#E58831'}} />
                 </Right>
               </ListItem>} />
           </ScrollView>
           </Row>
-        </Grid> 
-        <FooterNavBar navigation={this.props.navigation} />   
-      </View>
-    );
+        </Grid>
+
+        </Content>
+
+        <FooterNavBar navigation={this.props.navigation} />
+
+      </Container>
+      );
   }
 
 

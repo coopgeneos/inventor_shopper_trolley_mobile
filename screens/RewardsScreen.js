@@ -12,7 +12,7 @@ import {
 
 import { Container, Header, Content, Footer, FooterTab, Text, 
   Button, Icon, CheckBox, List, ListItem, Form, Item, Label,
-  Input, Spinner, Body, Left, Title, Right, Thumbnail, Radio } from 'native-base';
+  Input, Spinner, Body, Left, Title, Right, Thumbnail, Radio, Col } from 'native-base';
 
 import { Grid, Row } from "react-native-easy-grid";
 import Gallery from 'react-native-image-gallery';
@@ -111,16 +111,12 @@ export default class RewardsScreen extends React.Component {
   render() {
     const {value} = this.state;
     return (
-      <View style={styles.container}>
-        {/* <HeaderNavBar navigation={this.props.navigation} title="Actividades" />      */}
-        <Grid style={{ alignItems: 'center'}}>
-          <Row style={{ height: 120 }}>
-          <ImageBackground source={require("../assets/images/iconos/fondo_nav.png")} style={{width: '100%', height: '100%'}}>
-            <Image source={require("../assets/images/logo.png")} style={{width: 100, height: 100}}>
 
-            </Image>
-          </ImageBackground>
-          </Row>
+      <Container>
+        <HeaderNavBar navigation={this.props.navigation}  title="Rewards" />
+        <Content>
+          
+        <Grid style={{ alignItems: 'center'}}>
           <Row style={{ height: 40, marginTop: 5 }}>
             <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 28 }}> 245 Points</Text>
                 
@@ -148,9 +144,49 @@ export default class RewardsScreen extends React.Component {
           </Row>
         </Grid>
 
+        </Content>
 
-      <FooterNavBar navigation={this.props.navigation} /> 
-      </View>
+        <FooterNavBar navigation={this.props.navigation} />
+
+      </Container>
+
+
+
+      // <View style={styles.container}>
+      //   <HeaderNavBar navigation={this.props.navigation} title="Actividades" />
+
+          
+      //   <Grid style={{ alignItems: 'center'}}>
+      //     <Row style={{ height: 40, marginTop: 5 }}>
+      //       <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 28 }}> 245 Points</Text>
+                
+      //     </Row>
+      //     <Row  style={{ height: 40, marginTop: 5 }}>
+      //       <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 16 }}> Last updated: 2/26 8:03 am</Text>
+      //     </Row>
+      //     <Row style={{ height: 200, marginTop: 5}}>
+      //           <Gallery
+      //             style={{ flex: 1, backgroundColor: '#FFF' }}
+      //             images={this.state.images}
+      //             errorComponent={this.renderError}
+      //             onPageSelected={this.onChangeImage}
+      //             initialPage={0}
+      //           />
+      //           { this.caption }
+      //     </Row>
+      //     <Row style={{ height: '100%', marginTop: 10 }}>
+      //           <Text>
+      //           Loren ipsum dolor sit arnet, consectetur
+      //           adipisicing elit, sed du eiusmod tempor
+      //           incididunt ut labore et dolore magna aliqua.
+      //           Ut enim ad minim veniam, quis nostrud
+      //           </Text>
+      //     </Row>
+      //   </Grid>
+
+
+      // <FooterNavBar navigation={this.props.navigation} /> 
+      // </View>
     );
   }
 

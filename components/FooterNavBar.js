@@ -15,10 +15,8 @@ export default class FooterNavBar extends React.Component {
   render() {
     
     return (
-        <Footer>
-          <ImageBackground source={require("../assets/images/iconos/fondo_nav.png")} style={{width: '100%', height: '100%'}}>
-          
-          <FooterTab>
+        <Footer style={{ backgroundColor: '#113851'}}>
+          <FooterTab  style={{ backgroundColor: '#113851'}}>
             <Button vertical { ...{active: this.props.navigation.state.routeName == 'Rewards' ? true : false} }  onPress={() => this.props.navigation.navigate('Rewards')}>
               <Icon name="medal" />
               <Text>Rewards</Text>
@@ -32,8 +30,6 @@ export default class FooterNavBar extends React.Component {
               <Text>Settings</Text>
             </Button>
           </FooterTab>
-
-          </ImageBackground>
         </Footer>
     );
   }  

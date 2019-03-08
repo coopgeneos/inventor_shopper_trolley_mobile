@@ -144,13 +144,13 @@ export default {
   tabBarTextSize: platform === "ios" ? 14 : 11,
   activeTab: platform === "ios" ? "#007aff" : "#fff",
   sTabBarActiveTextColor: "#007aff",
-  tabBarActiveTextColor: platform === "ios" ? "#2874F0" : "#fff",
+  tabBarActiveTextColor: platform === "ios" ? "#E58831" : "#E58831",
   tabActiveBgColor: platform === "ios" ? "#113851" : "#113851",
 
   // Header
   toolbarBtnColor: platform === "ios" ? "#007aff" : "#fff",
-  toolbarDefaultBg: platform === "ios" ? "#F8F8F8" : "#3F51B5",
-  toolbarHeight: platform === "ios" ? 64 : 56,
+  toolbarDefaultBg: platform === "ios" ? "#113851" : "#113851",
+  toolbarHeight: platform === "ios" ? 250 : 250,
   toolbarSearchIconSize: platform === "ios" ? 20 : 23,
   toolbarInputColor: platform === "ios" ? "#CECDD2" : "#fff",
   searchBarHeight: platform === "ios" ? 30 : 40,
@@ -196,7 +196,7 @@ export default {
 
   // List
   listBg: "transparent",
-  listBorderColor: "#c9c9c9",
+  listBorderColor: "#E58831",
   listDividerBg: "#f4f4f4",
   listBtnUnderlayColor: "#DDD",
   listItemPadding: platform === "ios" ? 10 : 12,
@@ -231,10 +231,11 @@ export default {
   // Tab
   tabDefaultBg: platform === "ios" ? "#F8F8F8" : "#3F51B5",
   topTabBarTextColor: platform === "ios" ? "#6b6b6b" : "#b3c7f9",
-  topTabBarActiveTextColor: platform === "ios" ? "#007aff" : "#fff",
+  topTabBarActiveTextColor: platform === "ios" ? "#E58831" : "#E58831",
   topTabBarBorderColor: platform === "ios" ? "#a7a6ab" : "#fff",
   topTabBarActiveBorderColor: platform === "ios" ? "#007aff" : "#fff",
-
+  tabBarActiveTextColor: platform === "ios" ? "#E58831" : "#E58831",
+  
   // Tabs
   tabBgColor: "#F8F8F8",
   tabFontSize: 15,
