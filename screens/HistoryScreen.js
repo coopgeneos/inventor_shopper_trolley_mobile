@@ -51,7 +51,7 @@ export default class HistoryScreen extends React.Component {
           <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 28 }}> 58</Text>
           <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 16 }}> Returns </Text>
           </Col>
-          <Col style={{ width: '50%', paddingRight: 40}}>
+          <Col style={{ width: '50%', paddingRight: 20}}>
           <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 28 }}> 149 Points</Text>
           <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 16 }}> Total earned</Text>
           </Col>                
