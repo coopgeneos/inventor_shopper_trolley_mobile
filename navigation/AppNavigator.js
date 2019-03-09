@@ -10,6 +10,7 @@ import RewardsScreen from '../screens/RewardsScreen'
 import HistoryScreen from '../screens/HistoryScreen'
 import SettingsScreen from '../screens/SettingsScreen'
 import ScanScreen from "../screens/ScanScreen";
+import UsersScreen from "../screens/UsersScreen";
 
 
 const AppNavigator = createStackNavigator(
@@ -22,7 +23,8 @@ const AppNavigator = createStackNavigator(
     History: {screen: HistoryScreen },
     Settings: { screen: SettingsScreen },
     Settings: { screen: SettingsScreen },
-    Scan: {screen: ScanScreen}
+    Scan: {screen: ScanScreen},
+    Users: {screen: UsersScreen}
   }, 
   {
     initialRouteName: 'Login',

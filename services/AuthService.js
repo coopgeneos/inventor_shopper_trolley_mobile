@@ -112,3 +112,39 @@ export const unsetActiveUser = () =>{
 export const getActiveUser = () => {
     return AsyncStorage.getItem('user');
 }
+
+export const getUsers = () => {
+    return AsyncStorage.getItem('users');
+}
+
+export const removeUser = (username) => {
+    
+    console.log(username);
+
+    let promise = new Promise((resolve,reject)=>{
+
+        newUsersList = [];
+
+        getUsers().then((users)=>{
+
+            if(users){
+                users = JSON.parse(users);
+                users.forEach(user => {
+                    console.log(user);
+                    if(user.username != username){
+                        newUsersList.push(user);
+                    }
+                });
+                AsyncStorage.setItem('users',JSON.stringify(newUsersList)).then(()=>{
+
+                });
+                resolve(newUsersList);
+            }
+
+        })
+
+    });
+
+    return promise;
+
+}

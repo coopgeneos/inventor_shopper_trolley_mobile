@@ -98,41 +98,42 @@ export default class LoginScreen extends React.Component {
       style={{width: '100%', height: '100%'}}>
 
       <View style={styles.container}>
-        {/* <HeaderNavBar navigation={this.props.navigation} title="Actividades" />      */}
+
         <Grid style={{ alignItems: 'center'}}>
           <Row style={{ flexDirection: "row",
                         flexWrap: "wrap",
                         flex: 1,
                         justifyContent: "center" }}>
-      
-          {/* <ScrollView> */}
 
           <Form>
-          <Item style={{ marginTop: 10, borderColor: '#FFF' }}>
+            <Item style={{ borderColor: '#FFF' }}>
               <Text style={{ color: "#113851", fontSize: 40, borderColor: '#FFF'}}>¡WELCOME!</Text>
             </Item>
             <Item style={{ borderColor: '#FFF' }}>
             <Text style={{ color: "#E58831", fontSize: 40, borderColor: '#FFF'}}>Shopper Trolley</Text>
             </Item>
-            <Item rounded style={{ marginTop: 10, width: '70%'}}>
+            <Item rounded style={{ marginTop: 5, width: '70%'}}>
               <Input placeholder="Username" value="test"  onChangeText={(text) => this.setState({username: text})} />
             </Item>
-            <Item rounded style={{ marginTop: 10, width: '70%'}}>
+            <Item rounded style={{ marginTop: 5, width: '70%'}}>
               <Input placeholder="Password" value="test" secureTextEntry onChangeText={(text) => this.setState({password: text})} />
             </Item>
-            <Item style={{ marginTop: 10, borderColor: '#FFF' }}>
+            <Item style={{ marginTop: 5, borderColor: '#FFF' }}>
               <Text style={{ width: '60%' }}>Login Once</Text>
               <Radio
                 color={"#113851"}
                 selectedColor={"#E58831"}
                 style={{ width: '10%' }}/>
             </Item>
-            <Item style={{ marginTop: 20, borderColor: '#FFF' }}>
+            <Item style={{ marginTop: 5, borderColor: '#FFF' }}>
               <Button rounded onPress={ this._handleLogin.bind(this) }
 
                 style={{ fontSize: 40, color: '#FFF', backgroundColor: '#E58831'}}>
               <Text>Log In</Text>
               </Button>
+            </Item>
+            <Item style={{ marginTop: 5, borderColor: '#FFF' }}>
+              <Text onPress={() => this.props.navigation.navigate('Users')} style={{ color: "#E58831", fontSize: 12, borderColor: '#FFF'}}>Forgot password ?</Text>
             </Item>
           </Form>
           {/* </ScrollView> */}

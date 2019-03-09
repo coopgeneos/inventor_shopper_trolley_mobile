@@ -7,103 +7,86 @@ import {
   TouchableOpacity,
   View,
   ImageBackground,
+  FlatList
 } from 'react-native';
 
 import { Container, Header, Content, Footer, FooterTab, Text, 
   Button, Icon, CheckBox, List, ListItem, Form, Item, Label,
   Input, Spinner, Body, Left, Title, Right, Thumbnail, Radio } from 'native-base';
 
-import { Grid, Row, Col } from "react-native-easy-grid";
 
+import { Grid, Row } from "react-native-easy-grid";
+import { getUsers,removeUser } from "../services/AuthService";
 
 import { WebBrowser } from 'expo';
 import HeaderNavBar from '../components/HeaderNavBar';
 import FooterNavBar from '../components/FooterNavBar';
 import { MonoText } from '../components/StyledText';
-import { getHistoryRewards } from "../services/TrolleyService";
-import moment from "moment";
 
-// Recuperar desde los registros que se van haciendo con la app
+// Levantar estos usuarios de los registrados en el login más los de base de demo.
 
-const datas = [
-  ["Simon Mignolet", '21/02/2019', '53'],
-  ["Nathaniel Clyne", '21/03/2019', '59'],
-  ["Dejan Lovren", '21/04/2019', '25'],
-  ["Alberto Moreno", '21/05/2019', '55'],
-  ["Simon Mignolet", '21/06/2019', '15'],
-  ["Simon Mignolet", '21/06/2019', '15'],
-  ["Simon Mignolet", '21/06/2019', '15']
-];
-
-export default class HistoryScreen extends React.Component {
+export default class UsersScreen extends React.Component {
   static navigationOptions = {
     header: null,
   };
-
-  
 
   constructor(props){
     super(props);
 
     this.state = {
-      rewards:{
-        count: 0,
-        rewards: 0,
-        trolleys: []
-      }
+      users: [],
+      refreshing: false
     }
 
-    this.getHistoryRewards = getHistoryRewards.bind(this);
+    this.getUsers = getUsers.bind(this);
+    this.removeUser = removeUser.bind(this);
 
-    this.getHistoryRewards().then((rewards)=>{
-      console.log("------------HISTORY SCREEN------------");
-      console.log(rewards);
-      console.log("------------HISTORY SCREEN------------");
+    this.getUsers().then(users=>{
+      users = JSON.parse(users);
+      console.log(users);
+      this.setState({users:users});
+    })
 
-      this.setState({
-        rewards: rewards
-      });
+  }
+
+  removeUser(username){
+
+    this.removeUser(username).then((users)=>{
+      // users = JSON.parse(users);
+      this.setState({users:users});
+      this.props.navigation.navigate('Users')
+
     });
 
-    
   }
 
   render() {
     return (
-
       <Container>
-        <HeaderNavBar navigation={this.props.navigation}  title="History" />
+        <HeaderNavBar navigation={this.props.navigation}  title="User accounts" />
         <Content>
           
         <Grid style={{ alignItems: 'center'}}>
-          <Row style={{ height: 60, marginTop: 5 }}>
-          <Col style={{ width: '50%' }}>
-          <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 28 }}> { this.state.rewards.trolleys.length }</Text>
-          <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 16 }}> Returns </Text>
-          </Col>
-          <Col style={{ width: '50%', paddingRight: 20}}>
-          <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 28 }}> { this.state.rewards.rewards } Points</Text>
-          <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 16 }}> Total earned</Text>
-          </Col>                
-          </Row>
-          <Row style={{ marginTop: 15 }}>
+
+          <Row style={{ marginTop: 5 }}>
           <ScrollView>
-          <List
-            dataArray={this.state.rewards.trolleys}
-            renderRow={data =>
+
+            <FlatList 
+            data={ this.state.users }
+            extraData={ this.state.users }
+            keyExtractor={(item, index) => item.id.toString()}
+            renderItem={ ({item}) =>
               <ListItem style={{ borderColor: '#E58831', paddingRight: 10 }}>
                 <Left>
                   <Text>
-                  {/* <Text style= {{ fontWeight: "bold" }}></Text> */}
-                    { moment(data.startTime).format('MM/DD/YYYY') }{"\n"}{data.name}
+                    {item.username}
                   </Text>
                 </Left>
                 <Right>
-                  <Text>
-                    { data.points } Points <Icon name="play" style={{ color: '#E58831'}} />
-                  </Text>
+                  <Icon name="close" style={{ color: '#E58831'}} onPress={ this.removeUser.bind(this,item.username) }  />
                 </Right>
               </ListItem>} />
+
           </ScrollView>
           </Row>
         </Grid>
@@ -113,8 +96,7 @@ export default class HistoryScreen extends React.Component {
         <FooterNavBar navigation={this.props.navigation} />
 
       </Container>
-
-    );
+      );
   }
 
 
@@ -123,7 +105,6 @@ export default class HistoryScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
   developmentModeText: {
     marginBottom: 20,
