@@ -49,7 +49,7 @@ export default class UsersScreen extends React.Component {
 
   }
 
-  removeUser(username){
+  removeUserFromList(username){
 
     this.removeUser(username).then((users)=>{
       // users = JSON.parse(users);
@@ -73,7 +73,6 @@ export default class UsersScreen extends React.Component {
 
             <FlatList 
             data={ this.state.users }
-            extraData={ this.state.users }
             keyExtractor={(item, index) => item.id.toString()}
             renderItem={ ({item}) =>
               <ListItem style={{ borderColor: '#E58831', paddingRight: 10 }}>
@@ -83,7 +82,7 @@ export default class UsersScreen extends React.Component {
                   </Text>
                 </Left>
                 <Right>
-                  <Icon name="close" style={{ color: '#E58831'}} onPress={ this.removeUser.bind(this,item.username) }  />
+                  <Icon name="close" style={{ color: '#E58831'}} onPress={ this.removeUserFromList.bind(this,item.username) }  />
                 </Right>
               </ListItem>} />
 
