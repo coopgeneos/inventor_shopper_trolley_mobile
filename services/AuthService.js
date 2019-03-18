@@ -1,7 +1,7 @@
 import {AsyncStorage} from 'react-native';
 import { getExampleUsers } from "./ExampleDataService";
 
-export const login = (username,password) => {
+export const login = (username,password,remember) => {
 
     let promise = new Promise((resolve,reject)=>{
 
@@ -10,7 +10,9 @@ export const login = (username,password) => {
             if(user){
 
                 if(user.password == password){
-                    setActiveUser(user);
+                    if(remember){
+                        setActiveUser(user);
+                    }
                     resolve({status:true,message:"El usuario se ha logueado exitosamente",user:user});
                 }else{
                     resolve({status:false,message:"Las contraseñas no coinciden"});
@@ -18,7 +20,9 @@ export const login = (username,password) => {
 
             }else{
                 createUser(username,password).then((userData)=>{
-                    setActiveUser(userData);
+                    if(remember){
+                        setActiveUser(userData);
+                    }
                     resolve({status:true,message:"El usuario se ha creado exitosamente",user:userData});
                 })
                 .catch((error)=>{
@@ -106,7 +110,7 @@ export const setActiveUser = (user) =>{
 }
 
 export const unsetActiveUser = () =>{
-    AsyncStorage.setItem('user', null);
+    AsyncStorage.removeItem('user');
 }
 
 export const getActiveUser = () => {
@@ -141,6 +145,50 @@ export const removeUser = (username) => {
                 resolve(newUsersList);
             }
 
+        })
+
+    });
+
+    return promise;
+
+}
+
+export const loginOnce = (user) => {
+
+    let promise = new Promise((resolve,reject)=>{
+
+        setActiveUser(user);
+        resolve();
+
+    });
+
+}
+
+export const logout = () => {
+
+    let promise = new Promise((resolve,reject)=>{
+
+        unsetActiveUser();
+        resolve();
+
+    });
+
+    return promise;
+}
+
+export const isLoggedIn = () => {
+
+    let isLoggedIn = false;
+
+    let promise = new Promise((resolve, reject) => {
+        
+        getActiveUser().then((user)=>{
+            if( user ){
+                isLoggedIn = true;
+            }
+            console.log("IS LOGGED IN?");
+            console.log(isLoggedIn);
+            resolve(isLoggedIn);
         })
 
     });

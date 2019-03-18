@@ -2,10 +2,11 @@ import React from 'react';
 
 import { Header, Left, Title, Body, Right, Text, Button, Icon, View } from 'native-base';
 import {  ImageBackground, Image, Dimensions } from 'react-native';
-
+import { logout } from "../services/AuthService";
 export default class HeaderNavBar extends React.Component {
   constructor(props) {
     super(props);
+    this.logout = logout.bind(this);
   }
 
   goBack(){
@@ -48,7 +49,11 @@ export default class HeaderNavBar extends React.Component {
           <Button transparent onPress={() => this.props.navigation.navigate('PickUp')} >
             <Icon name='home' style={{fontSize: 30}}/>
           </Button>
-          <Button transparent onPress={() => this.props.navigation.navigate('Login')} >
+          <Button transparent onPress={() => {
+            this.logout().then(()=>{
+              this.props.navigation.navigate('Login');
+            });
+          }} >
             <Icon name='log-out' style={{fontSize: 30}}/>
           </Button>
           </Right>

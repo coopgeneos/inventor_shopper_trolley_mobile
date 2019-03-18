@@ -92,7 +92,7 @@ export default class UsersScreen extends React.Component {
 
         </Content>
 
-        <FooterNavBar navigation={this.props.navigation} />
+        {/* <FooterNavBar navigation={this.props.navigation} /> */}
 
       </Container>
       );

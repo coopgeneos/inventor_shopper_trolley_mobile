@@ -7,7 +7,8 @@ import {
   TouchableOpacity,
   View,
   ImageBackground,
-  Alert
+  Alert,
+  Switch
 } from 'react-native';
 
 import { Container, Header, Content, Footer, FooterTab, Text, 
@@ -15,7 +16,7 @@ import { Container, Header, Content, Footer, FooterTab, Text,
   Input, Spinner, Body, Left, Title, Right, Thumbnail, Radio } from 'native-base';
 
 import { Grid, Row } from "react-native-easy-grid";
-import { login } from "../services/AuthService";
+import { login,isLoggedIn } from "../services/AuthService";
 import { addExampleData,clearAsyncStorage } from "../services/ExampleDataService";
 import { pickUpTrolley,getMyTrolleys } from "../services/TrolleyService";
 
@@ -29,6 +30,8 @@ export default class LoginScreen extends React.Component {
     header: null,
   };
 
+  
+  
   constructor(props){
     super(props);
     this.login = login.bind(this);
@@ -36,16 +39,43 @@ export default class LoginScreen extends React.Component {
     this.pickUpTrolley = pickUpTrolley.bind(this);
     this.getMyTrolleys = getMyTrolleys.bind(this);
     this.clearAsyncStorage = clearAsyncStorage.bind(this);
+    this.isLoggedIn = isLoggedIn.bind(this);
+    
+    this.state = { SwitchValue: false };
+
+    
+    this.state = {
+      checked: true,
+    };
+
+    // console.log(this.state.checked);
+
+    this.isLoggedIn().then((isLogged)=>{
+      if( isLogged ){
+        this.getMyTrolleys().then((trolleys)=>{
+          console.log(trolleys);
+  
+          if(trolleys){
+            this.props.navigation.navigate('DropOff');
+          }else{
+            this.props.navigation.navigate('PickUp');
+          }
+        });
+      }
+    })
+
 
     // this.clearAsyncStorage().then(()=>{
     this.addExampleData();
     // });
 
     this.state = {
-      username: 'test',
-      password: 'test'
+      username: null,
+      password: null
     }
   }
+
+
 
   _handleLogin(){
 
@@ -60,13 +90,11 @@ export default class LoginScreen extends React.Component {
       );
     }else{
 
-      var login = this.login(this.state.username,this.state.password).then((data)=>{
+      var login = this.login(this.state.username,this.state.password,this.state.SwitchValue).then((data)=>{
         if(data.status){
 
           this.getMyTrolleys().then((trolleys)=>{
-            console.log("----------------------- MY TROLLEYS ---------------------");
             console.log(trolleys);
-            console.log("----------------------- END MY TROLLEYS ---------------------");
 
             if(trolleys){
               this.props.navigation.navigate('DropOff');
@@ -92,7 +120,16 @@ export default class LoginScreen extends React.Component {
     }
   }
 
+  _handleSwitch = () => {
+
+    this.setState(state =>{
+      checked: !state.checked
+    });
+  }  
+
   render() {
+    
+
     return (
       <ImageBackground source={require("../assets/images/fondoHome.jpeg")} 
       style={{width: '100%', height: '100%'}}>
@@ -113,17 +150,21 @@ export default class LoginScreen extends React.Component {
             <Text style={{ color: "#E58831", fontSize: 40, borderColor: '#FFF'}}>Shopper Trolley</Text>
             </Item>
             <Item rounded style={{ marginTop: 5, width: '70%'}}>
-              <Input placeholder="Username" value="test"  onChangeText={(text) => this.setState({username: text})} />
+              <Input placeholder="Username"   onChangeText={(text) => this.setState({username: text})} />
             </Item>
             <Item rounded style={{ marginTop: 5, width: '70%'}}>
-              <Input placeholder="Password" value="test" secureTextEntry onChangeText={(text) => this.setState({password: text})} />
+              <Input placeholder="Password"  secureTextEntry onChangeText={(text) => this.setState({password: text})} />
             </Item>
             <Item style={{ marginTop: 5, borderColor: '#FFF' }}>
               <Text style={{ width: '60%' }}>Login Once</Text>
-              <Radio
-                color={"#113851"}
-                selectedColor={"#E58831"}
-                style={{ width: '10%' }}/>
+              <Switch
+                // color={"#113851"}
+                // selectedColor={"#E58831"}
+                // style={{ width: '10%' }}
+                onValueChange={(value) => this.setState({SwitchValue: value})}
+                value={this.state.SwitchValue}
+                // onPress={() => this.setState({checked: !this.state.checked})}
+              />
             </Item>
             <Item style={{ marginTop: 5, borderColor: '#FFF' }}>
               <Button rounded onPress={ this._handleLogin.bind(this) }

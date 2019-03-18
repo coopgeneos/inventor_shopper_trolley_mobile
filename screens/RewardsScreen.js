@@ -83,7 +83,7 @@ export default class RewardsScreen extends React.Component {
 
   // get galleryCount () {
   //     const { index, images } = this.state;
-  //     return (
+  //     return (_this.state.rewards.trolleys[trolleysLength - 1].endTime
   //         <View style={{ top: 0, height: 65, backgroundColor: 'rgba(0, 0, 0, 0.7)', width: '100%', position: 'absolute', justifyContent: 'center' }}>
   //             <Text style={{ textAlign: 'right', color: 'white', fontSize: 14, fontStyle: 'italic', paddingRight: '10%' }}>{ index + 1 } / { this.rewards.trolleys.length }</Text>
   //         </View>
@@ -114,9 +114,16 @@ export default class RewardsScreen extends React.Component {
   getLastUpdate = () => {
 
     var trolleysLength = this.state.rewards.trolleys.length;
-    var endTime = this.state.rewards.trolleys[ trolleysLength - 1 ].endTime;
-    console.log(endTime);
-    this.setState({lastUpdate: moment(endTime).format('MM/DD HH:mm a')});
+    var endTime = moment(endTime).format('MM/DD HH:mm a');
+
+    if(trolleysLength > 0){
+
+      endTime = this.state.rewards.trolleys[ trolleysLength - 1 ].endTime;
+      endTime = moment(endTime).format('MM/DD HH:mm a');
+
+    }
+
+    this.setState({lastUpdate: endTime});
   }
 
 
