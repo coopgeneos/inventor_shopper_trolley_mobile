@@ -81,7 +81,7 @@ export default class HistoryScreen extends React.Component {
           <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 28 }}> { this.state.rewards.trolleys.length }</Text>
           <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 16 }}> Returns </Text>
           </Col>
-          <Col style={{ width: '50%', paddingRight: 20}}>
+          <Col style={{ width: '50%' }}>
           <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 28 }}> { this.state.rewards.rewards } Points</Text>
           <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 16 }}> Total earned</Text>
           </Col>                
@@ -98,9 +98,9 @@ export default class HistoryScreen extends React.Component {
                     { moment(data.startTime).format('MM/DD/YYYY') }{"\n"}{data.name}
                   </Text>
                 </Left>
-                <Right>
-                  <Text>
-                    { data.points } Points <Icon name="play" style={{ color: '#E58831'}} />
+                <Right style={{ width: 150 }}>
+                  <Text  onPress={() => alert('XX')} style={{ borderColor: '#E58831', fontSize: 18, textAlign: 'right', paddingRight: 10, width: 150}}>
+                    { data.points } Points    <Icon name="play" style={{ color: '#E58831'}} />
                   </Text>
                 </Right>
               </ListItem>} />
