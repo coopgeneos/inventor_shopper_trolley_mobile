@@ -36,14 +36,11 @@ export const getTodayRewards = () => {
 
         getMyDroppedTrolleys().then((trolleys)=>{
             trolleys = JSON.parse(trolleys);
-            var filteredTrolleys = [];
+            var filteredTrolleys = new Array();
             var count = 0;
             var rewards = 0;
             
-            console.log("--------TROLLEYS IN HISTORY--------");
-            console.log(trolleys);
-            console.log("-------TROLLEYS IN HISTORY--------");
-
+          
             if(trolleys){
          
                 trolleys.forEach(trolley => {

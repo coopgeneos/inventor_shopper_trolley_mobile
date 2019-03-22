@@ -56,13 +56,13 @@ export default class HistoryScreen extends React.Component {
     this.getHistoryRewards = getHistoryRewards.bind(this);
 
     this.getHistoryRewards().then((rewards)=>{
-      console.log("------------HISTORY SCREEN------------");
-      console.log(rewards);
-      console.log("------------HISTORY SCREEN------------");
 
-      this.setState({
-        rewards: rewards
-      });
+      if(rewards.trolleys){
+        this.setState({
+          rewards: rewards
+        });
+      }
+
     });
 
     
