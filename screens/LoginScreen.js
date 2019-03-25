@@ -137,43 +137,45 @@ export default class LoginScreen extends React.Component {
       <View style={styles.container}>
 
         <Grid style={{ alignItems: 'center'}}>
-          <Row style={{ flexDirection: "row",
+          <Row>
+
+          <Form style={{ flexDirection: "row",
                         flexWrap: "wrap",
                         flex: 1,
                         justifyContent: "center" }}>
-
-          <Form>
             <Item style={{ borderColor: '#FFF' }}>
-              <Text style={{ color: "#113851", fontSize: 40, borderColor: '#FFF'}}>¡WELCOME!</Text>
+              <Text style={{ color: "#113851", fontSize: 38, borderColor: '#FFF'}}>¡WELCOME!</Text>
             </Item>
             <Item style={{ borderColor: '#FFF' }}>
-            <Text style={{ color: "#E58831", fontSize: 40, borderColor: '#FFF'}}>Shopper Trolley</Text>
+            <Text style={{ color: "#E58831", fontSize: 38, borderColor: '#FFF'}}>Shopper Trolley</Text>
             </Item>
-            <Item rounded style={{ marginTop: 5, width: '70%'}}>
+            <Item rounded style={{ marginTop: 5, width: '70%', paddingLeft: 10}}>
               <Input placeholder="Username"   onChangeText={(text) => this.setState({username: text})} />
             </Item>
-            <Item rounded style={{ marginTop: 5, width: '70%'}}>
+            <Item rounded style={{ marginTop: 5, width: '70%', paddingLeft: 10}}>
               <Input placeholder="Password"  secureTextEntry onChangeText={(text) => this.setState({password: text})} />
             </Item>
-            <Item style={{ marginTop: 5, borderColor: '#FFF' }}>
-              <Text style={{ width: '60%' }}>Login Once</Text>
+            <Item style={{ marginTop: 5, marginLeft: 40, width: '50%', borderColor: '#FFF' }}>
+              <Text>Login Once</Text>
               <Switch
                 // color={"#113851"}
                 // selectedColor={"#E58831"}
-                // style={{ width: '10%' }}
+                // style={{ selectedColor: '#E58831' }}
+                trackColor={{true: '#E58831', false: '#DDD'}}
+                thumbColor="#E58831"
+                // tintColor="#E58831"
                 onValueChange={(value) => this.setState({SwitchValue: value})}
                 value={this.state.SwitchValue}
                 // onPress={() => this.setState({checked: !this.state.checked})}
               />
             </Item>
-            <Item style={{ marginTop: 5, borderColor: '#FFF' }}>
+            <Item style={{ marginTop: 5, paddingLeft: 40, width: '50%', borderColor: '#FFF' }}>
               <Button rounded onPress={ this._handleLogin.bind(this) }
-
-                style={{ fontSize: 40, color: '#FFF', backgroundColor: '#E58831'}}>
+                style={{ color: '#FFF', backgroundColor: '#E58831'}}>
               <Text>Log In</Text>
               </Button>
             </Item>
-            <Item style={{ marginTop: 5, borderColor: '#FFF' }}>
+            <Item style={{ marginTop: 5, paddingLeft: 30, width: '50%', borderColor: '#FFF' }}>
               <Text onPress={() => this.props.navigation.navigate('Users')} style={{ color: "#E58831", fontSize: 12, borderColor: '#FFF'}}>Forgot password ?</Text>
             </Item>
           </Form>
