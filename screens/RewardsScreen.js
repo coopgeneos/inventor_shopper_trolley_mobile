@@ -109,14 +109,31 @@ changePointView(index) {
   
   var ppc = this.state.rewards.rewards - this.state.pointsRewards[index];
 
-  Alert.alert(
+  if(ppc < 0) {
+    
+    Alert.alert(
       'Change Reward',
-      'Points availables: ' + this.state.rewards.rewards + ' Points post change: ' + ppc,
+      'Number of insufficient points',
       [
-        {text: 'OK', onPress: () => console.log('OK Change')},
+        {text: 'Return', onPress: () => console.log('KO Change')},
       ],
       {cancelable: false},
     );
+
+  } else {
+
+    Alert.alert(
+      'Change Reward',
+      'Points availables: ' + this.state.rewards.rewards + '\nPoints post change: ' + ppc,
+      [
+        {text: 'Change', onPress: () => console.log('OK Change')},
+      ],
+      {cancelable: false},
+    );
+
+  }
+
+  
 
 }
 
@@ -144,12 +161,12 @@ changePointView(index) {
   getLastUpdate = () => {
 
     var trolleysLength = this.state.rewards.trolleys.length;
-    var endTime = moment(endTime).format('MM/DD HH:mm a');
+    var endTime = moment(endTime).format('MM/DD/YYYY HH:mm a');
 
     if(trolleysLength > 0){
 
       endTime = this.state.rewards.trolleys[ trolleysLength - 1 ].endTime;
-      endTime = moment(endTime).format('MM/DD HH:mm a');
+      endTime = moment(endTime).format('MM/DD/YYYY HH:mm a');
 
     }
 
