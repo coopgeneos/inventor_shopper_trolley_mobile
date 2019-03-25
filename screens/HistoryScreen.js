@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
   ImageBackground,
+  Alert,
 } from 'react-native';
 
 import { Container, Header, Content, Footer, FooterTab, Text, 
@@ -68,6 +69,21 @@ export default class HistoryScreen extends React.Component {
     
   }
 
+  resumeHistory(data) {
+    console.info(data);
+    Alert.alert(
+      'Trolley Data',
+      'Number: ' + data.number + '\n' +
+      'Start Time: ' + moment(data.startTime).format('MM/DD/YYYY') + '\n' +
+      'End Time: ' + moment(data.startTime).format('MM/DD/YYYY') + '\n' +
+      'Points: ' + data.points,
+      [
+        {text: 'Return', onPress: () => console.log('OK Change')},
+      ],
+      {cancelable: false},
+    );
+  }
+
   render() {
     return (
 
@@ -99,7 +115,7 @@ export default class HistoryScreen extends React.Component {
                   </Text>
                 </Left>
                 <Right style={{ width: 150 }}>
-                  <Text  onPress={() => alert('XX')} style={{ borderColor: '#E58831', fontSize: 18, textAlign: 'right', paddingRight: 10, width: 150}}>
+                  <Text  onPress={() => this.resumeHistory(data)} style={{ borderColor: '#E58831', fontSize: 18, textAlign: 'right', paddingRight: 10, width: 150}}>
                     { data.points } Points    <Icon name="play" style={{ color: '#E58831'}} />
                   </Text>
                 </Right>
