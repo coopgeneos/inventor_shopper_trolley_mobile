@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   View,
   ImageBackground,
+  Alert,
 } from 'react-native';
 
 
@@ -26,11 +27,12 @@ import { MonoText } from '../components/StyledText';
 import { getTodayRewards } from "../services/TrolleyService";
 import moment from 'moment';
 export default class RewardsScreen extends React.Component {
-  
+
   constructor() {
     super();
     this.getTodayRewards = getTodayRewards.bind(this);
     this.state = {
+      pointsRewards: [50,150,80,135],
       rewards:{
         count: 0,
         rewards: 0,
@@ -86,7 +88,7 @@ export default class RewardsScreen extends React.Component {
     const { images, index } = this.state;
     return (
         <View style={{ bottom: 0, height: 65, width: '100%', position: 'absolute', justifyContent: 'center', padding: 10 }}>
-            <Text style={{ textAlign: 'center', color: 'white', fontSize: 28, fontStyle: 'italic', padding: 10 }}>{ (images[index] && images[index].caption) || '' } </Text>
+            <Text onPress={() => this.changePointView(index)} style={{ textAlign: 'center', color: 'white', fontSize: 28, fontStyle: 'italic', padding: 10 }}>{ (images[index] && images[index].caption) || '' } </Text>
         </View>
     );
 }
@@ -98,6 +100,24 @@ get galleryCount () {
             <Text style={{ textAlign: 'right', color: 'white', fontSize: 14, fontStyle: 'italic', paddingRight: '10%' }}>{ index + 1 } / { images.length }</Text>
         </View>
     );
+}
+
+changePointView(index) {
+  console.log('R: ' + this.state.rewards.rewards);
+  console.log('RA: ' + this.state.pointsRewards);
+  console.log('I: ' + index);
+  
+  var ppc = this.state.rewards.rewards - this.state.pointsRewards[index];
+
+  Alert.alert(
+      'Change Reward',
+      'Points availables: ' + this.state.rewards.rewards + ' Points post change: ' + ppc,
+      [
+        {text: 'OK', onPress: () => console.log('OK Change')},
+      ],
+      {cancelable: false},
+    );
+
 }
 
 
