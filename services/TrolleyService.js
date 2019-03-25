@@ -34,6 +34,8 @@ export const getTodayRewards = () => {
 
     let promise = new Promise((resolve,reject)=>{
 
+        console.info('INGRESA A LA PROMESA EN getTodayRewards');
+
         getMyDroppedTrolleys().then((trolleys)=>{
             trolleys = JSON.parse(trolleys);
             var filteredTrolleys = new Array();
@@ -42,6 +44,8 @@ export const getTodayRewards = () => {
             
           
             if(trolleys){
+
+                console.info('CANTIDAD DE CARROS: ' + trolleys.length);
          
                 trolleys.forEach(trolley => {
                     console.log(trolley);
@@ -50,14 +54,18 @@ export const getTodayRewards = () => {
 
                     trolleyDate = trolleyStartTime.format('MM/DD/YYYY');
                     todayDate = todayTime.format('MM/DD/YYYY');
+                    console.log('Comparativa de fechas: ' + trolleyDate + ' ' + todayDate);
                     console.log(trolleyDate);
                     console.log(todayDate);
 
-                    if(todayDate == trolleyDate){
+                    // Elimino el filtro de control de fechas de carros
+
+                    //if(todayDate == trolleyDate){
                         filteredTrolleys.push(trolley);
                         count += 1;
                         rewards += +trolley.points;
-                    }
+                        console.log(rewards);
+                    //}
 
                     
 
