@@ -65,7 +65,7 @@ export default class RewardsScreen extends React.Component {
     this.onChangeImage = this.onChangeImage.bind(this);
     
     this.getTodayRewards().then(( response )=>{
-  
+      this.setState( {rewards:response} )
       this.getLastUpdate();
     })
 
