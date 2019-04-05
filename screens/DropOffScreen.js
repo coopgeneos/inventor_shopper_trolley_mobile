@@ -49,12 +49,12 @@ export default class DropOffScreen extends React.Component {
             </Item>
             <Item underlineColorAndroid='transparent' style={{ marginTop: 20, borderBottomWidth: 0 }}>
               <Button rounded onPress={() => this.props.navigation.navigate('Scan',{ type: 'drop'  }) } style={{  width: '70%', fontSize: 40, color: '#FFF', backgroundColor: '#E58831'}}>
-              <Text>Drop-of checked-out Trolley</Text>
+              <Text style={{ width: '100%', textAlign: 'center', fontWeight: 'bold'}}>Drop-off checked-out Trolley</Text>
               </Button>
             </Item>
             <Item underlineColorAndroid='transparent' style={{ marginTop: 20, borderBottomWidth: 0 }}>
               <Button rounded onPress={() => this.props.navigation.navigate('Rewards')} style={{  width: '70%', fontSize: 40, color: '#FFF', backgroundColor: '#E58831'}}>
-              <Text>Rewards</Text>
+              <Text style={{ width: '100%', textAlign: 'center', fontWeight: 'bold'}}>Rewards</Text>
               </Button>
             </Item>
           </Form>

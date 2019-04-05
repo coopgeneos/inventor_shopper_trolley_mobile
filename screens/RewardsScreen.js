@@ -8,6 +8,7 @@ import {
   View,
   ImageBackground,
   Alert,
+  Linking,
 } from 'react-native';
 
 
@@ -32,7 +33,7 @@ export default class RewardsScreen extends React.Component {
     super();
     this.getTodayRewards = getTodayRewards.bind(this);
     this.state = {
-      pointsRewards: [50,150,80,135],
+      pointsRewards: [50,80,135,180],
       rewards:{
         count: 0,
         rewards: 0,
@@ -42,22 +43,22 @@ export default class RewardsScreen extends React.Component {
       images: [
         {
           caption: '50 points',
-          source: require('../assets/images/iconos/carro_footer.jpeg'),
-          dimensions: { width: 251, height: 315 }
-        },
-        {
-          caption: '150 points',
-          source: require('../assets/images/iconos/carro_footer.jpeg'),
+          source: require('../assets/images/rewards/Slider_App-Coles-Flybuys.png'),
           dimensions: { width: 251, height: 315 }
         },
         {
           caption: '80 points',
-          source: require('../assets/images/iconos/carro_footer.jpeg'),
+          source: require('../assets/images/rewards/Slider_App-Frequent-Flyer.png'),
           dimensions: { width: 251, height: 315 }
         },
         {
           caption: '135 points',
-          source: require('../assets/images/iconos/carro_footer.jpeg'),
+          source: require('../assets/images/rewards/Slider_App-Myer.png'),
+          dimensions: { width: 251, height: 315 }
+        },
+        {
+          caption: '180 points',
+          source: require('../assets/images/rewards/Slider_App-Rewards.png'),
           dimensions: { width: 251, height: 315 }
         },
       ]
@@ -88,7 +89,7 @@ export default class RewardsScreen extends React.Component {
     const { images, index } = this.state;
     return (
         <View style={{ bottom: 0, height: 65, width: '100%', position: 'absolute', justifyContent: 'center', padding: 10 }}>
-            <Text onPress={() => this.changePointView(index)} style={{ textAlign: 'center', color: 'white', fontSize: 28, fontStyle: 'italic', padding: 10 }}>{ (images[index] && images[index].caption) || '' } </Text>
+            <Text onPress={() => this.changePointView(index)} style={{ textAlign: 'center', color: 'white', fontSize: 24, fontStyle: 'italic', padding: 10 }}>{ (images[index] && images[index].caption) || '' } </Text>
         </View>
     );
 }
@@ -113,7 +114,7 @@ changePointView(index) {
     
     Alert.alert(
       'Change Reward',
-      'Number of insufficient points',
+      'You have insufficient points for this transaction',
       [
         {text: 'Return', onPress: () => console.log('KO Change')},
       ],
@@ -201,13 +202,15 @@ changePointView(index) {
                 />
                  { this.caption }
            </Row>
-           <Row style={{ height: '100%', marginTop: 10 }}>
-                 <Text>
-                 Loren ipsum dolor sit arnet, consectetur
-                 adipisicing elit, sed du eiusmod tempor
-                 incididunt ut labore et dolore magna aliqua.
-                 Ut enim ad minim veniam, quis nostrud
+           <Row style={{ height: '100%', marginTop: 20, paddingLeft:20, paddingRight: 20 }}>
+              <Content>
+                 <Text style={{ textAlign: 'justify'}}>
+                 Please visit the next link for more information and instructions on how to redeem.
                  </Text>
+                 <Text style={{ textAlign: 'justify', color: '#0000FF' }} onPress={() => { Linking.openURL('http://shoppertrolley.com.au/rewards'); }}>
+                 www.shoppertrolley.com.au/rewards 
+                 </Text>
+              </Content>
            </Row>
         </Grid>
 
@@ -217,43 +220,6 @@ changePointView(index) {
 
       </Container>
 
-
-
-      // <View style={styles.container}>
-      //   <HeaderNavBar navigation={this.props.navigation} title="Actividades" />
-
-          
-      //   <Grid style={{ alignItems: 'center'}}>
-      //     <Row style={{ height: 40, marginTop: 5 }}>
-      //       <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 28 }}> 245 Points</Text>
-                
-      //     </Row>
-      //     <Row  style={{ height: 40, marginTop: 5 }}>
-      //       <Text style={{ textAlign: 'center', color: '#0f3753', fontSize: 16 }}> Last updated: 2/26 8:03 am</Text>
-      //     </Row>
-      //     <Row style={{ height: 200, marginTop: 5}}>
-      //           <Gallery
-      //             style={{ flex: 1, backgroundColor: '#FFF' }}
-      //             images={this.state.images}
-      //             errorComponent={this.renderError}
-      //             onPageSelected={this.onChangeImage}
-      //             initialPage={0}
-      //           />
-      //           { this.caption }
-      //     </Row>
-      //     <Row style={{ height: '100%', marginTop: 10 }}>
-      //           <Text>
-      //           Loren ipsum dolor sit arnet, consectetur
-      //           adipisicing elit, sed du eiusmod tempor
-      //           incididunt ut labore et dolore magna aliqua.
-      //           Ut enim ad minim veniam, quis nostrud
-      //           </Text>
-      //     </Row>
-      //   </Grid>
-
-
-      // <FooterNavBar navigation={this.props.navigation} /> 
-      // </View>
     );
   }
 

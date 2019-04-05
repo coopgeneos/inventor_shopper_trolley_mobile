@@ -47,14 +47,14 @@ export default class PickUpScreen extends React.Component {
             <Item style={{ marginTop: 10, borderBottomWidth: 0 }}>
             <Text style={{ color: "#FFF", fontWeight: "bold", fontSize: 18 }}>What would you like to do today?</Text>
             </Item>
-            <Item style={{ marginTop: 20, borderBottomWidth: 0 }}>
-              <Button rounded onPress={() => this.props.navigation.navigate('Scan',{ type: 'pick'  }) } style={{  width: '70%', fontSize: 40, color: '#FFF', backgroundColor: '#E58831'}}>
-              <Text>Pick-Up Trolley</Text>
+            <Item style={{ marginTop: 20, borderBottomWidth: 0 }} >
+              <Button rounded  onPress={() => this.props.navigation.navigate('Scan',{ type: 'pick'  }) } style={{ width: '70%', fontSize: 40, color: '#FFF', backgroundColor: '#E58831'}}>
+              <Text style={{ width: '100%', textAlign: 'center', fontWeight: 'bold'}}>Pick-Up Trolley</Text>
               </Button>
             </Item>
             <Item  style={{ marginTop: 20, borderBottomWidth: 0 }}>
-              <Button rounded onPress={() => this.props.navigation.navigate('Rewards')} style={{  width: '70%', fontSize: 40, color: '#FFF', backgroundColor: '#E58831'}}>
-              <Text>Rewards</Text>
+              <Button rounded onPress={() => this.props.navigation.navigate('Rewards')} style={{ width: '70%', fontSize: 40, color: '#FFF', backgroundColor: '#E58831'}}>
+              <Text style={{ width: '100%', textAlign: 'center', fontWeight: 'bold'}}>Rewards</Text>
               </Button>
             </Item>
           </Form>

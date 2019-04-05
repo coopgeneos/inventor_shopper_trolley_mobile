@@ -53,66 +53,132 @@ export default class ScanScreen extends Component {
   };
 
   _handleBarCodeRead = result => {
-    console.log(result.data);
+    console.log("compare result.data: " + result.data);
+    console.log("compare this.state.lastScannedUrl: " + this.state.lastScannedUrl);
+    console.log("compare this.state.type: " + this.state.type);
     if (result.data !== this.state.lastScannedUrl) {
-      LayoutAnimation.spring();
-      Alert.alert(
-        'Qr code detected',
-        "Pick-up trolley #"+result.data+" - Current Time "+moment().format("hh:mm a"),
-        [
-                {text: 'Cancel', onPress: () => this.props.navigation.replace('PickUp')},
-                {text: 'Confirm', onPress: () => {
-                  this.verifyTrolley(result.data).then((response)=>{
-                    var trolley = {
-                      number: result.data,
-                      startTime: moment(),
-                      endTime: null,
-                      points:response.trolley.points,
-                      name: response.trolley.name
 
-                    }
-
-                    if(response.exist){
-                        if(this.state.type == 'pick'){
-
-                          this.verifyMyTrolley(trolley.number).then((exist)=>{
-                            if(!exist){
-                              this.setTrolley(trolley).then(()=>{
-                                Alert.alert('Success','Trolley #'+result.data+' picked up!',
-                                [{text:'Ok', onPress: ()=>this.props.navigation.replace('DropOff')}])
-                              });
-                            }else{
-                              Alert.alert('Error','Trolley #'+result.data+' is already picked up!',
-                                [{text:'Ok', onPress: ()=>this.props.navigation.replace('PickUp')}])
-                            }
+      if(this.state.type == 'pick'){
+        LayoutAnimation.spring();
+        Alert.alert(
+          'Qr code detected',
+          "Pick-up trolley #"+result.data+" - Current Time "+moment().format("hh:mm a"),
+          [
+                  {text: 'Cancel', onPress: () => this.props.navigation.replace('PickUp')},
+                  {text: 'Confirm', onPress: () => {
+                    this.verifyTrolley(result.data).then((response)=>{
+                      var trolley = {
+                        number: result.data,
+                        startTime: moment(),
+                        endTime: null,
+                        points:response.trolley.points,
+                        name: response.trolley.name
+  
+                      }
+  
+                      if(response.exist){
+                          if(this.state.type == 'pick'){
+  
+                            this.verifyMyTrolley(trolley.number).then((exist)=>{
+                              if(!exist){
+                                this.setTrolley(trolley).then(()=>{
+                                  Alert.alert('Success','Trolley #'+result.data+' picked up!',
+                                  [{text:'Ok', onPress: ()=>this.props.navigation.replace('DropOff')}])
+                                });
+                              }else{
+                                Alert.alert('Error','Trolley #'+result.data+' is already picked up!',
+                                  [{text:'Ok', onPress: ()=>this.props.navigation.replace('PickUp')}])
+                              }
+                              
+                            })
                             
-                          })
-                          
-                        }else{
-                          
-                          this.dropTrolley(result.data).then(()=>{
-                            Alert.alert('Success','Trolley #'+result.data+' dropped!',
-                            [{text:'Ok', onPress: ()=>this.props.navigation.replace('DropOff')}])
-                          });
-                        }
-                      }
-                      else{
-                        Alert.alert('Error','The scanned trolley is not valid',
-                          [{text:'Ok', onPress: ()=>{
-                            var screen = 'PickUp';
-
-                            if(this.state.type == 'drop'){
-                              screen = 'DropOff'
-                            }
-                            this.props.navigation.replace(screen);
+                          }else{
+                            
+                            this.dropTrolley(result.data).then(()=>{
+                              Alert.alert('Success','Trolley #'+result.data+' dropped!',
+                              [{text:'Ok', onPress: ()=>this.props.navigation.replace('PickUp')}])
+                            });
                           }
-                        }])
+                        }
+                        else{
+                          Alert.alert('Error','The scanned trolley is not valid',
+                            [{text:'Ok', onPress: ()=>{
+                              var screen = 'PickUp';
+  
+                              if(this.state.type == 'drop'){
+                                screen = 'DropOff'
+                              }
+                              this.props.navigation.replace(screen);
+                            }
+                          }])
+                        }
+                    })
+                  } },
+                ],
+                {cancelable: false},
+        );
+  
+      } else {
+        LayoutAnimation.spring();
+        Alert.alert(
+          'Qr code detected',
+          "Drop-off trolley #"+result.data+" - Current Time "+moment().format("hh:mm a"),
+          [
+                  {text: 'Cancel', onPress: () => this.props.navigation.replace('PickUp')},
+                  {text: 'Confirm', onPress: () => {
+                    this.verifyTrolley(result.data).then((response)=>{
+                      var trolley = {
+                        number: result.data,
+                        startTime: moment(),
+                        endTime: null,
+                        points:response.trolley.points,
+                        name: response.trolley.name
+  
                       }
-                  })
-                } },
-              ],
-              {cancelable: false},
-      );
+  
+                      if(response.exist){
+                          if(this.state.type == 'pick'){
+  
+                            this.verifyMyTrolley(trolley.number).then((exist)=>{
+                              if(!exist){
+                                this.setTrolley(trolley).then(()=>{
+                                  Alert.alert('Success','Trolley #'+result.data+' picked up!',
+                                  [{text:'Ok', onPress: ()=>this.props.navigation.replace('DropOff')}])
+                                });
+                              }else{
+                                Alert.alert('Error','Trolley #'+result.data+' is already picked up!',
+                                  [{text:'Ok', onPress: ()=>this.props.navigation.replace('PickUp')}])
+                              }
+                              
+                            })
+                            
+                          }else{
+                            
+                            this.dropTrolley(result.data).then(()=>{
+                              Alert.alert('Success','Trolley #'+result.data+' dropped!',
+                              [{text:'Ok', onPress: ()=>this.props.navigation.replace('PickUp')}])
+                            });
+                          }
+                        }
+                        else{
+                          Alert.alert('Error','The scanned trolley is not valid',
+                            [{text:'Ok', onPress: ()=>{
+                              var screen = 'PickUp';
+  
+                              if(this.state.type == 'drop'){
+                                screen = 'DropOff'
+                              }
+                              this.props.navigation.replace(screen);
+                            }
+                          }])
+                        }
+                    })
+                  } },
+                ],
+                {cancelable: false},
+        );
+  
+      }
       this.setState({ lastScannedUrl: result.data });
     }
   };

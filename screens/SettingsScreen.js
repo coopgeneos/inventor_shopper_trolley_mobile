@@ -21,12 +21,29 @@ import HeaderNavBar from '../components/HeaderNavBar';
 import FooterNavBar from '../components/FooterNavBar';
 import { MonoText } from '../components/StyledText';
 
+const coles = require('../assets/images/rewards/Slider-simple-Coles-Flybuys.png');
+const flyer = require('../assets/images/rewards/Slider-simple-Frequent-Flyer.png');
+const mywe = require('../assets/images/rewards/Slider-simple-Mywe-one.png');
+const woolworths = require('../assets/images/rewards/Slider-simple-Rewards.png');
 const datas = [
-  ["Program 1"],
-  ["Program 2"],
-  ["Program 3"],
-  ["Program 4"]
+  {
+    img: coles,
+    text: "Coles Rewards"
+  },
+  {
+    img: flyer,
+    text: "Qantas Frequent Flyer"
+  },
+  {
+    img: mywe,
+    text: "Mywe One"
+  },
+  {
+    img: woolworths,
+    text: "Woolworths Rewards"
+  }
 ];
+
 
 export default class SettingsScreen extends React.Component {
   static navigationOptions = {
@@ -81,10 +98,13 @@ export default class SettingsScreen extends React.Component {
             renderRow={data =>
               <ListItem style={{ borderColor: '#E58831', paddingRight: 10 }}>
                 <Left>
-                  <Text>
-                    {data}
-                  </Text>
+                  <Thumbnail square source={data.img} />
                 </Left>
+                <Body>
+                  <Text>
+                    {data.text}
+                  </Text>
+                </Body>
                 <Right>
                   <Icon name="play" style={{ color: '#E58831'}} />
                 </Right>
