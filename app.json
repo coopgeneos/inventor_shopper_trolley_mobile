@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Shopper Trolley",
-    "slug": "shopper-trolley",
+    "name": "Shopper Trolley2",
+    "slug": "shopper-trolley2",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
@@ -23,7 +23,9 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
-    }
+      "supportsTablet": true,
+      "bundleIdentifier": "com.geneos.shoppertrolley2"
+    },
+    "description": ""
   }
 }
