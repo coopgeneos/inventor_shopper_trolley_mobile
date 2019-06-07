@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Shopper Trolley",
-    "slug": "shopper-trolley",
+    "name": "Shopper Trolley2",
+    "slug": "shopper-trolley2",
     "privacy": "public",
     "sdkVersion": "32.0.0",
     "platforms": [
@@ -11,7 +11,7 @@
     "android": {
       "package": "com.inventor.shopper.trolley"
     },
-    "version": "1.0.0",
+    "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -27,7 +27,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.inventor.shopper.trolley"
-    }
+      "bundleIdentifier": "com.geneos.shoppertrolley2"
+    },
+    "description": ""
   }
 }
