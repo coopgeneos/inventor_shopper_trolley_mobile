@@ -143,7 +143,7 @@ export default class LoginScreen extends React.Component {
                         flexWrap: "wrap",
                         flex: 1,
                         justifyContent: "center" }}>
-            <Item style={{ borderColor: '#FFF' }}>
+            <Item style={{ borderColor: '#FFF', marginTop: 30 }}>
               <Text style={{ color: "#113851", fontSize: 38, borderColor: '#FFF'}}>¡WELCOME!</Text>
             </Item>
             <Item style={{ borderColor: '#FFF' }}>
