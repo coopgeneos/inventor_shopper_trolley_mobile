@@ -14,8 +14,11 @@ import {
   StyleSheet,
   TouchableOpacity,
   Image,
-  ImageBackground
+  ImageBackground,
+  Vibration
 } from 'react-native';
+
+import { Header, Left, Right, Button, Icon } from 'native-base';
 
 import moment from "moment";
 import { BarCodeScanner, Permissions } from 'expo';
@@ -42,7 +45,8 @@ export default class ScanScreen extends Component {
     this.setTrolley = setTrolley;
     this.verifyTrolley = verifyTrolley;
     this.dropTrolley = dropTrolley;
-    this.verifyMyTrolley = verifyMyTrolley;
+    this.verifyMyTrolley = verifyMyTrolley;  
+    this.state.camerastate = 'on';  
   }
 
   _requestCameraPermission = async () => {
@@ -57,6 +61,9 @@ export default class ScanScreen extends Component {
     console.log("compare this.state.lastScannedUrl: " + this.state.lastScannedUrl);
     console.log("compare this.state.type: " + this.state.type);
     if (result.data !== this.state.lastScannedUrl) {
+
+      Vibration.vibrate();
+      this.setState({ camerastate: 'off' });
 
       if(this.state.type == 'pick'){
         LayoutAnimation.spring();
@@ -184,30 +191,61 @@ export default class ScanScreen extends Component {
   };
 
   render() {
-    return (
-      
+    if (this.state.camerastate === 'on')
+    {  
+      return (     
+        <View>   
+            {this.state.hasCameraPermission === null
+              ? <Text>Requesting for camera permission</Text>
+              : this.state.hasCameraPermission === false
+                  ? <Text style={{ color: '#fff' }}>
+                      Camera permission is not granted
+                    </Text>
+                  : <BarCodeScanner
+                      onBarCodeRead={this._handleBarCodeRead}  
+                      style={{height:Dimensions.get('window').height,width: Dimensions.get('window').width}}>
+                      <Text style={styles.description}>Scan your QR code</Text>
+                      
+                                          
+                      <ImageBackground source={require("../assets/images/iconos/qr-scan.png")} 
+                      style={{width: '100%', height: '100%'}}>
+                      
+                      <Right style={{width: '100%'}}>
+                      <Button transparent onPress={() => this.props.navigation.navigate('PickUp')} >
+                        <Icon name='home' style={{fontSize: 30}}/>
+                      </Button>
+                      </Right>
+
+                      </ImageBackground>
+                    </BarCodeScanner>}
+
+            {this._maybeRenderUrl()}
+
+            <StatusBar hidden />
+          </View>
+      )
+    }
+    else{
+      return (
       <View>
-          {this.state.hasCameraPermission === null
-            ? <Text>Requesting for camera permission</Text>
-            : this.state.hasCameraPermission === false
-                ? <Text style={{ color: '#fff' }}>
-                    Camera permission is not granted
-                  </Text>
-                : <BarCodeScanner
-                    onBarCodeRead={this._handleBarCodeRead}
-                    style={{height:Dimensions.get('window').height,width: Dimensions.get('window').width}}>
-                    <Text style={styles.description}>Scan your QR code</Text>
-                    <ImageBackground source={require("../assets/images/iconos/qr-scan.png")} 
-                    style={{width: '100%', height: '100%'}}>
+        <ImageBackground source={require("../assets/images/fondoHome.jpeg")} 
+                      style={{width: '100%', height: '100%'}}>
+                      
+                      <Right style={{width: '100%'}}>
+                      <Button transparent onPress={() => this.props.navigation.navigate('PickUp')} >
+                        <Icon name='home' style={{fontSize: 30}}/>
+                      </Button>
+                      </Right>
+        </ImageBackground>
 
-                    </ImageBackground>
-                  </BarCodeScanner>}
 
-          {this._maybeRenderUrl()}
+        {this._maybeRenderUrl()}
+        <StatusBar hidden />
+      </View>
+      )
+    }
 
-          <StatusBar hidden />
-        </View>
-    );
+
   }
 
   _handlePressUrl = () => {
